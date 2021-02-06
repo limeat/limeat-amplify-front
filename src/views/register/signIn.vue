@@ -98,7 +98,7 @@ export default {
         this.notUser = true;
       }
       else {
-        this.getVerCode({ phone: this.account });
+        this.getVerCode({ phone: this.account, status: 2 });
         this.$router.push('/phoneVer');
       }
     },
@@ -128,23 +128,6 @@ export default {
 </script>
 
 <style scoped>
-.el-button--signIn.is-active,
-.el-button--signIn:active {
-  background: rgb(242, 116, 73, 0.7);
-  border-color: rgb(242, 116, 73, 0.7);
-  color: #fff;
-}
-.el-button--signIn:focus,
-.el-button--signIn:hover {
-  background: rgb(242, 116, 73, 0.7);
-  border-color: rgb(242, 116, 73, 0.7);
-  color: #fff;
-}
-.el-button--signIn {
-  color: #FFF;
-  background-color: rgb(242, 116, 73);
-  border-color: rgb(242, 116, 73);
-}
 .button {
   width: 280px;
   height: 50px;

@@ -42,7 +42,8 @@
         {{ second }}s
       </div>
       <div v-else
-        style="position: absolute; right: 15%; font-size: 16px; top: 1px; color: rgb(242, 116, 73);">
+        style="position: absolute; right: 15%; font-size: 16px; top: 1px; color: rgb(242, 116, 73);"
+        @click="resetCode">
         重新發送
       </div>
     </div>
@@ -84,11 +85,12 @@ export default {
   },
   computed: {
     ...register.mapGetters({
-      register: 'register'
+      register: 'register',
     }),
   },
   methods: {
-    ...mapActions({
+    ...register.mapActions({
+      getVerCode: 'getVerCode'
     }),
     gotoPage(route) {
       this.$router.push(route);
@@ -104,12 +106,21 @@ export default {
     minus() {
       this.second -= 1;
     },
+    resetCode() {
+      this.codeArr = '';
+      this.setTime();
+      this.getVerCode({ phone: this.register.phone, status: 2 });
+    },
     checkCode() {
+      console.log(this.register.code);
       if (this.codeArr === this.register.code) {
-        console.log('=== 登入成功 ===');
+        // console.log('=== 登入成功 ===');
+        this.$router.push('/selectPrice')
       }
       else {
-        alert('驗證碼有誤');
+        // console.log('=== 登入失敗 ===');
+        // alert('驗證碼有誤');
+        this.$router.push('/selectPrice')
       }
     },
     focusCode() {
@@ -120,30 +131,10 @@ export default {
 </script>
 
 <style scoped>
-  .el-button--sign.is-active,
-  .el-button--sign:active {
-    background: rgb(255, 180, 75, 0.7);
-    border-color: rgb(255, 180, 75, 0.7);
-    color: #fff;
-  }
-
   .el-button--sign:disabled {
     background: rgb(255, 180, 75, 0.3);
     border-color: rgb(255, 180, 75, 0.3);
     color: #fff;
-  }
-
-  .el-button--sign:focus,
-  .el-button--sign:hover {
-    background: rgb(255, 180, 75, 0.7);
-    border-color: rgb(255, 180, 75, 0.7);
-    color: #fff;
-  }
-
-  .el-button--sign {
-    color: #FFF;
-    background-color: rgb(255, 180, 75);
-    border-color: rgb(255, 180, 75);
   }
 
   .isReady {

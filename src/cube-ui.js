@@ -5,7 +5,9 @@ import Vue from 'vue'
 // Style is always required.
 import {
   /* eslint-disable no-unused-vars */
-  Button
+  Button,
+  Slide
 } from 'cube-ui'
 
 Vue.use(Button)
+Vue.use(Slide)

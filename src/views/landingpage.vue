@@ -47,44 +47,6 @@ export default {
 </script>
 
 <style scoped>
-  .el-button--sign.is-active,
-  .el-button--sign:active {
-    background: rgb(255, 180, 75, 0.7);
-    border-color: rgb(255, 180, 75, 0.7);
-    color: #fff;
-  }
-
-  .el-button--sign:focus,
-  .el-button--sign:hover {
-    background: rgb(255, 180, 75, 0.7);
-    border-color: rgb(255, 180, 75, 0.7);
-    color: #fff;
-  }
-
-  .el-button--sign {
-    color: #FFF;
-    background-color: rgb(255, 180, 75);
-    border-color: rgb(255, 180, 75);
-  }
-  .el-button--signIn.is-active,
-  .el-button--signIn:active {
-    background: rgb(242, 116, 73, 0.7);
-    border-color: rgb(242, 116, 73, 0.7);
-    color: #fff;
-  }
-
-  .el-button--signIn:focus,
-  .el-button--signIn:hover {
-    background: rgb(242, 116, 73, 0.7);
-    border-color: rgb(242, 116, 73, 0.7);
-    color: #fff;
-  }
-
-  .el-button--signIn {
-    color: #FFF;
-    background-color: rgb(242, 116, 73);
-    border-color: rgb(242, 116, 73);
-  }
   .position {
     position: absolute;
     left: 50%;

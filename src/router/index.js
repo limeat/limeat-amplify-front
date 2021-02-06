@@ -24,6 +24,13 @@ const routes = [
     component: resolve => {
       require(['@/views/register/phoneVer.vue'], resolve)
     }
+  },
+  {
+    path: '/selectPrice',
+    name: 'selectPrice',
+    component: resolve => {
+      require(['@/views/likes/selectPrice.vue'], resolve)
+    }
   }
 ]
 
