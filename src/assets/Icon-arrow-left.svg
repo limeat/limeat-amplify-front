@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#e6502e;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px}
+        </style>
+    </defs>
+    <g id="Icon_arrow-left" transform="translate(-1.5 -1.5)">
+        <path id="路径_70" d="M33 18A15 15 0 1 1 18 3a15 15 0 0 1 15 15z" class="cls-1"/>
+        <path id="路径_71" d="M18 12l-6 6 6 6" class="cls-1"/>
+        <path id="路径_72" d="M24 18H12" class="cls-1"/>
+    </g>
+</svg>

@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-limeat-dev-232633-authRole",
+      "UnauthRoleArn": "arn:aws:iam::189626258944:role/amplify-limeat-dev-232633-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::189626258944:role/amplify-limeat-dev-232633-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-limeat-dev-232633-deployment",
+      "UnauthRoleName": "amplify-limeat-dev-232633-unauthRole",
+      "StackName": "amplify-limeat-dev-232633",
+      "StackId": "arn:aws:cloudformation:us-east-1:189626258944:stack/amplify-limeat-dev-232633/edacf7d0-3ee9-11eb-84d0-0a4a6f581873",
+      "AmplifyAppId": "d2nykvuvq2kzvi"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2nykvuvq2kzvi",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}
