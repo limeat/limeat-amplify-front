@@ -17,6 +17,13 @@ const routes = [
     component: resolve => {
       require(['@/views/register/signIn.vue'], resolve)
     }
+  },
+  {
+    path: '/phoneVer',
+    name: 'phoneVer',
+    component: resolve => {
+      require(['@/views/register/phoneVer.vue'], resolve)
+    }
   }
 ]
 

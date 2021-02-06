@@ -15,6 +15,12 @@ Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
 
+Vue.directive('focus', {
+  inserted: function (el) {
+    el.focus()
+  }
+})
+
 new Vue({
   router,
   store,

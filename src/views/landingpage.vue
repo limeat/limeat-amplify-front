@@ -9,10 +9,11 @@
       <img src="../assets/LIMeat.svg" width="168" class="position logo_img">
     </div>
     <!-- 登入按鈕 -->
-    <img src="../assets/signIn.svg" width="280" class="btn mt-50" @click="goToPage('/signIn')">
+    <!-- <img src="../assets/signIn.svg" width="280" class="btn mt-50" @click="goToPage('/signIn')"> -->
+    <el-button round type="signIn" class="button mt-25" @click="goToPage('/signIn')">SIGN IN</el-button>
     <br>
-    <!-- <el-button round type="sign" class="button mt-25">SIGN UP</el-button> -->
-    <img src="../assets/signUp.svg" width="280" class="btn mt-25">
+    <el-button round type="sign" class="button mt-25">SIGN UP</el-button>
+    <!-- <img src="../assets/signUp.svg" width="280" class="btn mt-25"> -->
     <div style="height: 80px;"></div>
   </div>
 </template>
@@ -48,22 +49,41 @@ export default {
 <style scoped>
   .el-button--sign.is-active,
   .el-button--sign:active {
-    background: #20B2AA;
-    border-color: #20B2AA;
+    background: rgb(255, 180, 75, 0.7);
+    border-color: rgb(255, 180, 75, 0.7);
     color: #fff;
   }
 
   .el-button--sign:focus,
   .el-button--sign:hover {
-    background: #48D1CC;
-    border-color: #48D1CC;
+    background: rgb(255, 180, 75, 0.7);
+    border-color: rgb(255, 180, 75, 0.7);
     color: #fff;
   }
 
   .el-button--sign {
     color: #FFF;
-    background-color: #20B2AA;
-    border-color: #20B2AA;
+    background-color: rgb(255, 180, 75);
+    border-color: rgb(255, 180, 75);
+  }
+  .el-button--signIn.is-active,
+  .el-button--signIn:active {
+    background: rgb(242, 116, 73, 0.7);
+    border-color: rgb(242, 116, 73, 0.7);
+    color: #fff;
+  }
+
+  .el-button--signIn:focus,
+  .el-button--signIn:hover {
+    background: rgb(242, 116, 73, 0.7);
+    border-color: rgb(242, 116, 73, 0.7);
+    color: #fff;
+  }
+
+  .el-button--signIn {
+    color: #FFF;
+    background-color: rgb(242, 116, 73);
+    border-color: rgb(242, 116, 73);
   }
   .position {
     position: absolute;
