@@ -1,20 +1,51 @@
 <template>
   <div class="home">
-    <img src="../../assets/Icon-arrow-left.svg" class="arrow" @click="gotoPage('/signIn')">
+    <img src="../../assets/Icon-arrow-left.svg"
+      class="arrow"
+      @click="gotoPage('/signIn')">
     <div style="height: 28px;"></div>
     <div style="font-size: 28px; color: rgb(112,112,112)">手機登入驗證</div>
     <div style="margin-top: 20%; font-size: 16px; color: rgb(49, 100, 126);">請輸入發送到您手機的驗證碼</div>
     <!-- 密碼輸入 -->
-    <div style="margin-top: 15%;" @click="focusCode">
-      <el-row :gutter="20" style="width: 80%; margin: 0 auto;">
-        <el-col :span="4" v-for="(code, idx) in 6" :key="idx + 'c'">
-          <div v-if="!codeArr[idx]" :class="{ isReady: (idx === 0 || codeArr[idx - 1] !== undefined), notReady: (idx !== 0 && codeArr[idx - 1] === undefined) }"></div>
-          <div v-else style="color: rgb(242, 116, 73); font-weight: 700; font-size: 10vw;">{{ codeArr[idx] }}</div>
+    <div style="margin-top: 15%; height: 80px;" @click="focusCode">
+      <el-row :gutter="20"
+        style="width: 80%; margin: 0 auto;">
+        <el-col :span="4"
+          v-for="(code, idx) in 6"
+          :key="idx + 'c'">
+          <div v-if="!codeArr[idx]"
+            :class="{ isReady: (idx === 0 || codeArr[idx - 1] !== undefined), notReady: (idx !== 0 && codeArr[idx - 1] === undefined) }">
+          </div>
+          <div v-else
+            style="color: rgb(242, 116, 73); font-weight: 700; font-size: 10vw;">
+            {{ codeArr[idx] }}
+          </div>
         </el-col>
       </el-row>
     </div>
-    <input ref="code" v-model="codeArr" type="text" style="margin-top: 0px; opacity: 0;">
-    <el-button round type="sign" class="button mt-15" :disabled="codeArr.length < 6">NEXT</el-button>
+    <el-input ref="code"
+      :maxlength="6"
+      v-model="codeArr"
+      type="text"
+      style="position: fixed; bottom: 0; opacity: 0;"/>
+    <el-button round
+      type="sign"
+      class="button"
+      :disabled="codeArr.length < 6"
+      @click="checkCode">
+      NEXT
+    </el-button>
+    <div style="position: relative;">
+      <div style="margin-top: 5%; font-size: 16px; color: rgb(49, 100, 126);">沒收到簡訊？</div>
+      <div v-if="second !== 0"
+        style="position: absolute; right: 15%; font-size: 21px; top: -3px; color: rgb(242, 116, 73); font-weight: 600;">
+        {{ second }}s
+      </div>
+      <div v-else
+        style="position: absolute; right: 15%; font-size: 16px; top: 1px; color: rgb(242, 116, 73);">
+        重新發送
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,12 +59,13 @@ export default {
   name: 'Home',
   data() {
     return {
-      codeArr: ''
+      codeArr: '',
+      second: 0,
     }
   },
   mounted() {
     console.log(this.register);
-    var _this = this;
+    this.setTime();
     // document.onkeydown = function(e) {
     //   const keyValue   = window.event.keyCode;
     //   const nowLength  = _this.codeArr.length;
@@ -57,10 +89,29 @@ export default {
   },
   methods: {
     ...mapActions({
-      gotoPage(route) {
-        this.$router.push(route);
-      },
     }),
+    gotoPage(route) {
+      this.$router.push(route);
+    },
+    setTime() {
+      this.second = 60;
+      var si = setInterval(this.minus, 1000);
+      setTimeout(() => {
+        this.second = 0;
+        clearInterval(si);
+      }, 60000);
+    },
+    minus() {
+      this.second -= 1;
+    },
+    checkCode() {
+      if (this.codeArr === this.register.code) {
+        console.log('=== 登入成功 ===');
+      }
+      else {
+        alert('驗證碼有誤');
+      }
+    },
     focusCode() {
       this.$refs.code.focus();
     }
@@ -121,6 +172,9 @@ export default {
   }
   .mt-25 {
     margin-top: 25px;
+  }
+  .mt-35 {
+    margin-top: 35px;
   }
   .arrow {
     position: absolute;

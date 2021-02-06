@@ -12,7 +12,7 @@
       <el-input style="width: 95%;" v-model="account" placeholder="手機號碼"></el-input>
       <div v-if="notUser" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">此號碼尚未註冊或輸入錯誤</div>
       <!-- 密碼 -->
-      <el-button round type="signIn" class="button mt-15" @click="checkPhone">取得手機驗證碼</el-button>
+      <el-button round type="signIn" class="button mt-25" @click="checkPhone">取得手機驗證碼</el-button>
       <!-- <el-input style="margin-top: 30px; width: 95%;" type="password" :show-password="true" v-model="password" placeholder="密碼"></el-input> -->
       <!-- 忘記密碼 -->
       <!-- <el-row style="width: 95%;">
@@ -152,6 +152,9 @@ export default {
 }
 .mt-15 {
   margin-top: 15px;
+}
+.mt-25 {
+  margin-top: 25px;
 }
 .arrow {
   position: absolute;
