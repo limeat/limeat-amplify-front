@@ -26,6 +26,20 @@ const routes = [
     }
   },
   {
+    path: '/checkData',
+    name: 'checkData',
+    component: resolve => {
+      require(['@/views/checkData.vue'], resolve)
+    }
+  },
+  {
+    path: '/main',
+    name: 'main',
+    component: resolve => {
+      require(['@/views/main.vue'], resolve)
+    }
+  },
+  {
     path: '/phoneVer',
     name: 'phoneVer',
     component: resolve => {

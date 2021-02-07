@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#707070;stroke-linecap:round;stroke-width:2px}.cls-2{fill:#707070}
+        </style>
+    </defs>
+    <g id="Adjust_icon" transform="translate(1)">
+        <g id="line" transform="translate(-29.5 -55)">
+            <path id="line-2" d="M20 0L0 0" class="cls-1" transform="translate(29.5 58)"/>
+            <path id="line-3" d="M20 0L0 0" class="cls-1" transform="translate(29.5 66)"/>
+            <path id="line-4" d="M20 0L0 0" class="cls-1" transform="translate(29.5 74)"/>
+        </g>
+        <circle id="Adjust_icon-2" cx="3" cy="3" r="3" class="cls-2" transform="translate(2)"/>
+        <path id="Adjust_icon-3" d="M3 0a3 3 0 1 1-3 3 3 3 0 0 1 3-3z" class="cls-2" transform="translate(12 8)"/>
+        <path id="Adjust_icon-4" d="M3 0a3 3 0 1 1-3 3 3 3 0 0 1 3-3z" class="cls-2" transform="translate(5 16)"/>
+    </g>
+</svg>

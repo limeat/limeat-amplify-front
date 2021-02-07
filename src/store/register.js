@@ -9,6 +9,11 @@ const state = {
             lastName: '',
             birth: ''
         },
+        likes: {
+            flavors: [],
+            types: [],
+            price: ''
+        },
         signUp: {
             account: '',
             password: '',
@@ -38,6 +43,9 @@ const mutations = {
         state.user.detail.firstName = payload.firstName;
         state.user.detail.lastName = payload.lastName;
         state.user.detail.birth = payload.birth;
+    },
+    RECEIVE_USER_LIKES(state, payload) {
+        state.user.likes = payload;
     }
 }
 
@@ -59,6 +67,9 @@ const actions = {
         const lastName = payload.lastName;
         const birth = payload.birth;
         commit('RECEIVE_USER_DETAIL', { firstName, lastName, birth });
+    },
+    setDefaultLikes({ commit, state }, payload) {
+        commit('RECEIVE_USER_LIKES', payload);
     }
 }
 

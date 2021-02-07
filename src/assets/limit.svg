@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="112" height="26" viewBox="0 0 112 26">
+    <g>
+        <path fill="#f7f7f7" d="M11.115 0h89.771C107.024 0 112 5.82 112 13s-4.976 13-11.115 13h-89.77C4.976 26 0 20.18 0 13S4.976 0 11.115 0z" opacity="0.3" transform="translate(-236 -103) translate(236 103)"/>
+        <path fill="#31647e" d="M10.375 3.375a7 7 0 1 0 7 7 7 7 0 0 0-7-7zm0 9.154L7.144 9.3h6.462z" transform="translate(-236 -103) translate(322.625 105.625)"/>
+        <text fill="#31647e" font-family="PingFangSC-Regular, PingFang SC" font-size="12px" transform="translate(-236 -103) translate(246 120)">
+            <tspan x="0" y="0">增添飲食限制</tspan>
+        </text>
+    </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="26" viewBox="0 0 88 26">
+    <g>
+        <path fill="#f7f7f7" d="M11.327 0h65.346C82.929 0 88 5.82 88 13s-5.071 13-11.327 13H11.327C5.071 26 0 20.18 0 13S5.071 0 11.327 0z" opacity="0.3" transform="translate(-138 -103) translate(138 103)"/>
+        <path fill="#31647e" d="M10.375 3.375a7 7 0 1 0 7 7 7 7 0 0 0-7-7zm0 9.154L7.144 9.3h6.462z" transform="translate(-138 -103) translate(200.625 105.625)"/>
+        <text fill="#31647e" font-family="PingFangSC-Regular, PingFang SC" font-size="12px" transform="translate(-138 -103) translate(149 120)">
+            <tspan x="0" y="0">更改預算</tspan>
+        </text>
+    </g>
+</svg>

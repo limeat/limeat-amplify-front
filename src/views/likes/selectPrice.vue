@@ -81,7 +81,8 @@
           </div>
           <div :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
             class="button btnStart"
-            style="margin-top: 20px;">
+            style="margin-top: 20px;"
+            @click="goToPage('/checkData')">
             開始使用 LIMEAT
           </div>
         </div>
@@ -179,12 +180,18 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
+    ...register.mapActions({
+      setDefaultLikes: 'setDefaultLikes'
     }),
     load () {
       this.count += 2
     },
     goToPage(route) {
+      this.setDefaultLikes({
+        flavors: this.flavorSelect,
+        types: this.typeSelect,
+        price: this.selectedPrice
+      });
       this.$router.push(route);
     },
     selectPrice(price) {
