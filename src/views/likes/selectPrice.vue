@@ -1,58 +1,82 @@
 <template>
   <div class="home">
-    <div v-if="page === 1" class="flavor"></div>
+    <div v-if="page === 1" class="flavor">
+      <!-- 標題 -->
+      <el-row>
+        <el-col :span="7" style="text-align: right;">
+          <img src="../../assets/Icon-chart-line.svg"/>
+        </el-col>
+        <el-col :span="10" style="text-align: center;">
+          <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
+          <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">口味喜好</div>
+        </el-col>
+        <el-col :span="7" style="text-align: left;">
+          <img src="../../assets/Icon-message-circle.svg"/>
+        </el-col>
+      </el-row>
+      <!-- 選項 -->
+      <div style="width: 80%; margin: 0 auto;">
+        <ul class="infinite-list" style="overflow: auto; list-style-type: none; padding: 0;">
+          <li class="infinite-list-item" style="margin-bottom: 20px;">
+            <el-row>
+              <el-col :span="12">
+                <div class="circle"></div>
+                <div style="font-size: 15px; margin-top: 5px;">台式料理</div>
+              </el-col>
+              <el-col :span="12">
+                <div class="circle"></div>
+                <div style="font-size: 15px; margin-top: 5px;">韓式料理</div>
+              </el-col>
+            </el-row>
+          </li>
+          <li class="infinite-list-item" style="margin-bottom: 20px;">
+            <el-row>
+              <el-col :span="12">
+                <div class="circle"></div>
+                <div style="font-size: 15px; margin-top: 5px;">美式料理</div>
+              </el-col>
+              <el-col :span="12">
+                <div class="circle"></div>
+                <div style="font-size: 15px; margin-top: 5px;">泰越料理</div>
+              </el-col>
+            </el-row>
+          </li>
+          <li class="infinite-list-item">
+            <el-row>
+              <el-col :span="12">
+                <div class="circle"></div>
+                <div style="font-size: 15px; margin-top: 5px;">義法料理</div>
+              </el-col>
+              <el-col :span="12">
+                <div class="circle"></div>
+                <div style="font-size: 15px; margin-top: 5px;">素食料理</div>
+              </el-col>
+            </el-row>
+          </li>
+        </ul>
+        <!-- <div v-for="(flavor, idx) in flavors" :key="idx + 'f'" style="width: 50%; padding: 10px; display: inline-block;">
+          <div class="circle"></div>
+          <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
+        </div> -->
+      </div>
+    </div>
     <div v-if="page === 2" class="type"></div>
+    <!-- 價格區間 -->
     <div v-if="page === 3" class="price">
       <div style="font-size: 28px; color: #fff;">價格區間</div>
       <div style="font-size: 15px; color: #fff;">選擇您一餐含運費的預算價錢</div>
-      <div>
-        <i v-if="nowSelect !== 0"
-          class="el-icon-caret-top"
-          style="margin-top: 20px; font-size: 40px;"
-          @click="nowSelect -= 1">
-        </i>
-        <i v-else
-          class="el-icon-caret-top"
-          style="margin-top: 20px; font-size: 40px; color: #c9c7c7;">
-        </i>
+      <div v-for="(price, idx) in prices"
+        class="priceBar"
+        :class="{ isSelect: selectedPrice === price, notSelect: (selectedPrice !== price || selectedPrice !== '') }"
+        @click="selectPrice(price)"
+        :key="idx + 'p'">
+        {{ price }}
       </div>
-      <div class="selectBox">
-        <div class="originBox" :style="Y">
-          <div v-for="(price, idx) in prices"
-            :key="idx + 'p'" class="priceBox"
-            :class="{ isSelect: idx === nowSelect, noSelect: idx !== nowSelect }"
-            @click="goToPosition(idx)">
-            {{ price }}
-          </div>
-        </div>
-      </div>
-      <div style="margin-top: -5px;">
-        <i v-if="nowSelect !== 4"
-          class="el-icon-caret-bottom"
-          style="font-size: 40px;"
-          @click="nowSelect += 1">
-        </i>
-        <i v-else
-          class="el-icon-caret-bottom"
-          style="font-size: 40px; color: #c9c7c7;">
-        </i>
-      </div>
-      <!-- <div class="selectBox" ref="myScroll"
-        @touchstart="touchStart($event)"
-        @touchmove="touchMove($event)"
-        @touchend="touchEnd($event)">
-        <div v-for="(price, idx) in prices"
-          :key="idx + 'p'" class="priceBox"
-          :class="{ isSelect: idx === nowSelect + 2, noSelect: idx !== nowSelect + 2 }"
-          @click="goToPosition(idx)">
-          {{ price }}
-        </div>
-      </div> -->
-      <el-button round
-        type="sign"
-        class="button">
+      <div :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
+        class="button btnStart"
+        style="margin-top: 20px;">
         開始使用 LIMEAT
-      </el-button>
+      </div>
     </div>
     <el-row>
       <el-col :span="8" v-for="(btn, index) in buttons" :key="index + 'b'">
@@ -83,16 +107,19 @@ export default {
       isActive: false,
       nowSelect: 2,
       page: 3,
+      count: 0,
+      selectedPrice: '',
+      flavorSelect: [],
       prices: [
-        '100 以內',
-        '100 - 150',
-        '150 - 200',
-        '200 - 300',
-        '300 以上'
+        '100元以內',
+        '100-150元',
+        '150-200元',
+        '200-300元',
+        '300元以上'
       ],
       buttons: [
         {
-          bgColor: 'rgb(237, 223, 211)',
+          bgColor: 'rgb(255, 242, 226)',
           color: 'rgb(237, 113, 70)',
           label: '口味喜好'
         },
@@ -103,7 +130,7 @@ export default {
         },
         {
           bgColor: 'rgb(237, 113, 70)',
-          color: 'rgb(237, 223, 211)',
+          color: 'rgb(255, 242, 226)',
           label: '價格區間'
         }
       ]
@@ -129,63 +156,20 @@ export default {
   methods: {
     ...mapActions({
     }),
-    changePage(current) {
-      console.log('当前轮播图序号为:' + current)
-    },
-    clickHandler(item, index) {
-      console.log(item, index)
+    load () {
+      this.count += 2
     },
     goToPage(route) {
       this.$router.push(route);
     },
-    touchStart(e) {
-      // this.nowSelect = -3;
-    },
-    touchMove(e) {
-      // this.nowSelect = -3;
-    },
-    goToPosition(index) {
-      if (index > 1) {
-        this.$refs.myScroll.scrollTop = (index - 2) * 60;
-        this.nowSelect = index - 2;
+    selectPrice(price) {
+      if (this.selectedPrice === price) {
+        this.selectedPrice = '';
       }
-    },
-    // touchEnd(e) {
-    //   const pageY = this.$refs.myScroll.scrollTop;
-    //   if (pageY < 30) {
-    //     this.$refs.myScroll.scrollTop = 0;
-    //     this.nowSelect = 0;
-    //   }
-    //   if (pageY > 30 && pageY < 60) {
-    //     this.$refs.myScroll.scrollTop = 60;
-    //     this.nowSelect = 1;
-    //   }
-    //   if (pageY > 60 && pageY < 90) {
-    //     this.$refs.myScroll.scrollTop = 60;
-    //     this.nowSelect = 1;
-    //   }
-    //   if (pageY > 90 && pageY < 120) {
-    //     this.$refs.myScroll.scrollTop = 120;
-    //     this.nowSelect = 2;
-    //   }
-    //   if (pageY > 120 && pageY < 150) {
-    //     this.$refs.myScroll.scrollTop = 120;
-    //     this.nowSelect = 2;
-    //   }
-    //   if (pageY > 150 && pageY < 180) {
-    //     this.$refs.myScroll.scrollTop = 180;
-    //     this.nowSelect = 3;
-    //   }
-    //   if (pageY > 180 && pageY < 210) {
-    //     this.$refs.myScroll.scrollTop = 180;
-    //     this.nowSelect = 3;
-    //   }
-    //   if (pageY > 210) {
-    //     this.$refs.myScroll.scrollTop = 240;
-    //     this.nowSelect = 4;
-    //   }
-    //   console.log(this.nowSelect);
-    // }
+      else {
+        this.selectedPrice = price;
+      }
+    }
   }
 }
 </script>
@@ -195,71 +179,56 @@ export default {
     background-color: rgb(15, 80, 106);
     height: 100vh;
   }
+  .circle {
+    width: 25vw;
+    height: 25vw;
+    background-color: rgb(252, 177, 74);
+    border: 1px solid rgb(112, 112, 112);
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+  .isActive {
+    opacity: 1;
+  }
+  .notActive {
+    opacity: 0;
+  }
+  .notSelect {
+    color:rgb(255, 255, 255, 0.5);
+  }
+  .isSelect {
+    box-shadow: 0 0 0 3px white;
+    color:rgb(255, 255, 255);
+  }
+  .priceBar {
+    background-color: rgb(240, 140, 105);
+    width: 80%;
+    border-radius: 25px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 20px;
+    /* color: #fff; */
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 50px;
+    box-sizing: content-box;
+  }
   .price {
     background-color: rgb(237, 113, 70);
     height: calc(100vh - 90px);
+    overflow: auto;
     padding-top: 40px;
-  }
-  .originBox {
-    transition: 0.5s;
-    /* transform: translateY(-140px); */
-  }
-  .isSelect {
-    /* border-top: 2px solid;
-    border-bottom: 2px solid; */
-    font-size: 22px;
-  }
-  .noSelect {
-    font-size: 22px;
-    opacity: 0.5;
-  }
-  .selectBox {
-    width: 80%;
-    height: 70px;
-    border-radius: 20px;
-    background-color: rgb(233, 155, 128);
-    border: 2px solid rgba(0, 0, 0, 0.16);
-    margin: 0 auto;
-    margin-top: -10px;
-    overflow: hidden;
-    position: relative;
-  }
-  .priceBox {
-    /* border: 1px solid #fff; */
-    color: #fff;
-    width: 95%;
-    margin: 0 auto;
-    height: 70px;
-    line-height: 70px;
-    font-weight: 600;
+    padding-bottom: 20px;
   }
   .flavor {
-    background-color: rgb(237, 223, 211);
+    background-color: rgb(255, 242, 226);
+    padding-top: 40px;
     height: calc(100vh - 90px);
+    overflow: auto;
   }
   .type {
     background-color: rgb(252, 177, 74);
     height: calc(100vh - 90px);
-  }
-  .position {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .active {
-    transform: translateY(-100%);
-  }
-  .sign_in_btn {
-    top: 410px;
-  }
-  .logo_img {
-    top: 60px;
-  }
-  .mt-50 {
-    margin-top: 50px;
-  }
-  .mt-25 {
-    margin-top: 25px;
   }
   .btn {
     transition: 0.5s;
@@ -276,29 +245,5 @@ export default {
     -webkit-box-shadow: inset 0 3px 10px -5px #555;
     -moz-box-shadow: inset 0 3px 10px -5px #555;
     box-shadow: inset 0 3px 10px -5px #555;
-  }
-  .button {
-    width: 80%;
-    height: 50px;
-    margin-top: 50px;
-    color: rgb(15, 80, 106);
-    border: 0.5px solid rgb(15, 80, 106);
-    border-radius: 25px;
-  }
-  .logo {
-    top: 0;
-    border-radius: 50%;
-    width: 260px;
-    height: 260px;
-    background-color: rgb(255,180,75);
-    opacity: 0.05;
-  }
-  .logo1 {
-    top: 25px;
-    border-radius: 50%;
-    width: 210px;
-    height: 210px;
-    background-color: rgb(255,180,75);
-    opacity: 0.1;
   }
 </style>

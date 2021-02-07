@@ -28,13 +28,7 @@
       v-model="codeArr"
       type="text"
       style="position: fixed; bottom: 0; opacity: 0;"/>
-    <el-button round
-      type="sign"
-      class="button"
-      :disabled="codeArr.length < 6"
-      @click="checkCode">
-      NEXT
-    </el-button>
+    <div class="button btnSignUp" @click="checkCode">NEXT</div>
     <div style="position: relative;">
       <div style="margin-top: 5%; font-size: 16px; color: rgb(49, 100, 126);">沒收到簡訊？</div>
       <div v-if="second !== 0"
@@ -65,8 +59,10 @@ export default {
     }
   },
   mounted() {
-    console.log(this.register);
     this.setTime();
+    setTimeout(() => {
+      alert(`你的驗證碼為：${this.register.code}`);
+    }, 1000)
     // document.onkeydown = function(e) {
     //   const keyValue   = window.event.keyCode;
     //   const nowLength  = _this.codeArr.length;
@@ -112,15 +108,12 @@ export default {
       this.getVerCode({ phone: this.register.phone, status: 2 });
     },
     checkCode() {
-      console.log(this.register.code);
       if (this.codeArr === this.register.code) {
-        // console.log('=== 登入成功 ===');
         this.$router.push('/selectPrice')
       }
       else {
-        // console.log('=== 登入失敗 ===');
-        // alert('驗證碼有誤');
-        this.$router.push('/selectPrice')
+        alert('驗證碼有誤');
+        // this.$router.push('/selectPrice')
       }
     },
     focusCode() {
@@ -131,50 +124,17 @@ export default {
 </script>
 
 <style scoped>
-  .el-button--sign:disabled {
-    background: rgb(255, 180, 75, 0.3);
-    border-color: rgb(255, 180, 75, 0.3);
-    color: #fff;
-  }
-
   .isReady {
     border-bottom: 4px solid rgb(255, 180, 75);
     height: 40px;
   }
-
   .notReady {
     border-bottom: 4px solid rgb(215,215,215);
     height: 40px;
-  }
-
-  .position {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .active {
-    transform: translateY(-100%);
-  }
-  .sign_in_btn {
-    top: 410px;
-  }
-  .mt-50 {
-    margin-top: 50px;
-  }
-  .mt-25 {
-    margin-top: 25px;
-  }
-  .mt-35 {
-    margin-top: 35px;
   }
   .arrow {
     position: absolute;
     top: 30px;
     left: 7%;
-  }
-  .button {
-    width: 80%;
-    height: 50px;
-    border-radius: 25px;
   }
 </style>

@@ -9,11 +9,9 @@
       <img src="../assets/LIMeat.svg" width="168" class="position logo_img">
     </div>
     <!-- 登入按鈕 -->
-    <!-- <img src="../assets/signIn.svg" width="280" class="btn mt-50" @click="goToPage('/signIn')"> -->
-    <el-button round type="signIn" class="button mt-25" @click="goToPage('/signIn')">SIGN IN</el-button>
+    <div class="button btnSignIn" style="margin-top: 10%;" @click="goToPage('/signIn')">SIGN IN</div>
     <br>
-    <el-button round type="sign" class="button mt-25">SIGN UP</el-button>
-    <!-- <img src="../assets/signUp.svg" width="280" class="btn mt-25"> -->
+    <div class="button btnSignUp" style="margin-top: 0px;">SIGN UP</div>
     <div style="height: 80px;"></div>
   </div>
 </template>
@@ -55,25 +53,11 @@ export default {
   .active {
     transform: translateY(-100%);
   }
-  .sign_in_btn {
-    top: 410px;
-  }
   .logo_img {
     top: 60px;
   }
-  .mt-50 {
-    margin-top: 50px;
-  }
-  .mt-25 {
-    margin-top: 25px;
-  }
   .btn {
     transition: 0.5s;
-  }
-  .button {
-    width: 280px;
-    height: 50px;
-    border-radius: 25px;
   }
   .logo {
     top: 0;

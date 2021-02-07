@@ -7,24 +7,13 @@
     <div style="height: 145px;">
       <img src="../../assets/LIMeat.svg" width="156" style="margin-top: 20px;">
     </div>
-    <div style="width: 300px; margin: 46px auto;">
+    <div style="margin: 46px auto;">
       <!-- 帳號 -->
-      <el-input style="width: 95%;" v-model="account" placeholder="手機號碼"></el-input>
+      <el-input style="width: 80%;" v-model="account" placeholder="手機號碼"></el-input>
       <div v-if="notUser" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">此號碼尚未註冊或輸入錯誤</div>
       <!-- 密碼 -->
-      <el-button round type="signIn" class="button mt-25" @click="checkPhone">取得手機驗證碼</el-button>
-      <!-- <el-input style="margin-top: 30px; width: 95%;" type="password" :show-password="true" v-model="password" placeholder="密碼"></el-input> -->
-      <!-- 忘記密碼 -->
-      <!-- <el-row style="width: 95%;">
-        <el-col :span="12">
-          <div style="color: rgb(242, 116, 73); text-align: left; padding-left: 20px; padding-top: 15px;">{{ errorText }}</div>
-        </el-col>
-        <el-col :span="12">
-          <div style="color: rgb(112,112,112); font-size: 15px; text-align: right; padding-right: 0px; padding-top: 15px;">忘記密碼？</div>
-        </el-col>
-      </el-row> -->
-      <!-- <img src="../../assets/signIn.svg" width="95%" style="margin-top: 25px;" @click="signIn"> -->
-      <div style="margin: 25px auto; width: 95%;">
+      <div class="button btnSignUp" style="margin-top: 25px;" @click="checkPhone">取得手機驗證碼</div>
+      <div style="margin: 25px auto; width: 80%;">
         <el-row :gutter="5">
           <!-- 分隔線 -->
           <el-col :span="10">
@@ -128,11 +117,11 @@ export default {
 </script>
 
 <style scoped>
-.button {
+/* .button {
   width: 280px;
   height: 50px;
   border-radius: 25px;
-}
+} */
 .mt-15 {
   margin-top: 15px;
 }

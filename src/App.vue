@@ -8,6 +8,45 @@
 
 <style>
 
+.mt-15 {
+  margin-top: 15px;
+}
+.mt-50 {
+  margin-top: 50px;
+}
+.mt-25 {
+  margin-top: 25px;
+}
+
+.button {
+  width: 80%;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 50px;
+  margin: 0 auto;
+  transition: all .3s ease;
+}
+
+.btnStart {
+  background-color: rgb(255, 180, 75);
+  border: 1px solid rgb(15, 80, 106);
+  color: rgb(15, 80, 106);
+}
+
+.btnSignIn {
+  background-color: rgb(242, 116, 73);
+  border-color: rgb(242, 116, 73);
+  color: #fff;
+}
+
+.btnSignUp {
+  background-color: rgb(255, 180, 75);
+  border-color: rgb(255, 180, 75);
+  color: #fff;
+}
+
 .el-icon-caret-top:hover {
   color: #5866b0 !important;
 }
@@ -16,7 +55,7 @@
   color: #5866b0 !important;
 }
 
-.el-button--sign.is-active,
+/* .el-button--sign.is-active,
 .el-button--sign:active {
   background: rgb(255, 180, 75, 0.7);
   border-color: rgb(255, 180, 75, 0.7);
@@ -53,7 +92,7 @@
   color: #FFF;
   background-color: rgb(242, 116, 73);
   border-color: rgb(242, 116, 73);
-}
+} */
 
 .slide-fade-enter-active {
   transition: all .5s ease;
