@@ -19,6 +19,13 @@ const routes = [
     }
   },
   {
+    path: '/signUp',
+    name: 'signUp',
+    component: resolve => {
+      require(['@/views/register/signUp.vue'], resolve)
+    }
+  },
+  {
     path: '/phoneVer',
     name: 'phoneVer',
     component: resolve => {

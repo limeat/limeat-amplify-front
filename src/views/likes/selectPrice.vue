@@ -1,89 +1,98 @@
 <template>
   <div class="home">
-    <div v-if="page === 1" class="flavor">
-      <!-- 標題 -->
-      <el-row>
-        <el-col :span="7" style="text-align: right;">
-          <img src="../../assets/Icon-chart-line.svg"/>
-        </el-col>
-        <el-col :span="10" style="text-align: center;">
-          <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
-          <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">口味喜好</div>
-        </el-col>
-        <el-col :span="7" style="text-align: left;">
-          <img src="../../assets/Icon-message-circle.svg"/>
-        </el-col>
-      </el-row>
-      <!-- 選項 -->
-      <div style="width: 80%; margin: 0 auto;">
-        <ul class="infinite-list" style="overflow: auto; list-style-type: none; padding: 0;">
-          <li class="infinite-list-item" style="margin-bottom: 20px;">
-            <el-row>
-              <el-col :span="12">
-                <div class="circle"></div>
-                <div style="font-size: 15px; margin-top: 5px;">台式料理</div>
-              </el-col>
-              <el-col :span="12">
-                <div class="circle"></div>
-                <div style="font-size: 15px; margin-top: 5px;">韓式料理</div>
-              </el-col>
-            </el-row>
-          </li>
-          <li class="infinite-list-item" style="margin-bottom: 20px;">
-            <el-row>
-              <el-col :span="12">
-                <div class="circle"></div>
-                <div style="font-size: 15px; margin-top: 5px;">美式料理</div>
-              </el-col>
-              <el-col :span="12">
-                <div class="circle"></div>
-                <div style="font-size: 15px; margin-top: 5px;">泰越料理</div>
-              </el-col>
-            </el-row>
-          </li>
-          <li class="infinite-list-item">
-            <el-row>
-              <el-col :span="12">
-                <div class="circle"></div>
-                <div style="font-size: 15px; margin-top: 5px;">義法料理</div>
-              </el-col>
-              <el-col :span="12">
-                <div class="circle"></div>
-                <div style="font-size: 15px; margin-top: 5px;">素食料理</div>
-              </el-col>
-            </el-row>
-          </li>
-        </ul>
-        <!-- <div v-for="(flavor, idx) in flavors" :key="idx + 'f'" style="width: 50%; padding: 10px; display: inline-block;">
-          <div class="circle"></div>
-          <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
-        </div> -->
+    <mu-carousel :active="page" :hide-controls="true" :hide-indicators="true" :cycle="false" style="height: calc(100vh - 90px); overflow: auto;">
+      <mu-carousel-item>
+        <div class="flavor">
+        <!-- 標題 -->
+        <el-row>
+          <el-col :span="7" style="text-align: right;">
+            <img style="margin-top: 10px;" src="../../assets/Icon-chart-line.svg"/>
+          </el-col>
+          <el-col :span="10" style="text-align: center;">
+            <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
+            <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">口味喜好</div>
+          </el-col>
+          <el-col :span="7" style="text-align: left;">
+            <img src="../../assets/Icon-message-circle.svg"/>
+          </el-col>
+        </el-row>
+        <!-- 選項 -->
+        <div style="width: 80%; margin: 0 auto;">
+          <div v-for="(flavor, idx) in flavors" :key="idx + 'f'" style="width: 50%; padding: 10px; display: inline-block;">
+            <div :class="{ isInFlavorList: flavorSelect.indexOf(flavor.type) !== -1 }"
+              class="circle"
+              @click="getFlavor(flavor.type)">
+            </div>
+            <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
+          </div>
+        </div>
+        <div :class="{ notActive: flavorSelect.length < 1, isActive:  flavorSelect.length >= 1 }"
+          class="button btnSignIn"
+          style="margin-top: 25px;"
+          @click="getFlavorSelected">
+          NEXT
+        </div>
       </div>
-    </div>
-    <div v-if="page === 2" class="type"></div>
-    <!-- 價格區間 -->
-    <div v-if="page === 3" class="price">
-      <div style="font-size: 28px; color: #fff;">價格區間</div>
-      <div style="font-size: 15px; color: #fff;">選擇您一餐含運費的預算價錢</div>
-      <div v-for="(price, idx) in prices"
-        class="priceBar"
-        :class="{ isSelect: selectedPrice === price, notSelect: (selectedPrice !== price || selectedPrice !== '') }"
-        @click="selectPrice(price)"
-        :key="idx + 'p'">
-        {{ price }}
+      </mu-carousel-item>
+      <mu-carousel-item>
+        <div class="type">
+        <!-- 標題 -->
+        <el-row>
+          <el-col :span="7" style="text-align: right;">
+            <img style="margin-top: 10px;" src="../../assets/Icon-chart-line-orange.svg"/>
+          </el-col>
+          <el-col :span="10" style="text-align: center;">
+            <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
+            <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">類別喜好</div>
+          </el-col>
+          <el-col :span="7" style="text-align: left;">
+            <img src="../../assets/Icon-message-circle-white.svg"/>
+          </el-col>
+        </el-row>
+        <!-- 選項 -->
+        <div style="width: 80%; margin: 0 auto;">
+          <div v-for="(type, idx) in types" :key="idx + 't'" style="width: 50%; padding: 10px; display: inline-block;">
+            <div :class="{ isInTypeList: typeSelect.indexOf(type.type) !== -1 }"
+              class="circle1"
+              @click="getType(type.type)">
+            </div>
+            <div style="font-size: 15px; margin-top: 5px;">{{ type.label }}</div>
+          </div>
+        </div>
+        <div :class="{ notActive: typeSelect.length < 1, isActive:  typeSelect.length >= 1 }"
+          class="button btnType"
+          style="margin-top: 25px;"
+          @click="getTypeSelected">
+          NEXT
+        </div>
       </div>
-      <div :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
-        class="button btnStart"
-        style="margin-top: 20px;">
-        開始使用 LIMEAT
-      </div>
-    </div>
+      </mu-carousel-item>
+      <mu-carousel-item>
+        <!-- 價格區間 -->
+        <div class="price">
+          <div style="font-size: 28px; color: #fff;">價格區間</div>
+          <div style="font-size: 15px; color: #fff;">選擇您一餐含運費的預算價錢</div>
+          <div v-for="(price, idx) in prices"
+            class="priceBar"
+            :class="{ isSelect: selectedPrice === price, notSelect: (selectedPrice !== price || selectedPrice !== '') }"
+            @click="selectPrice(price)"
+            :key="idx + 'p'">
+            {{ price }}
+          </div>
+          <div :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
+            class="button btnStart"
+            style="margin-top: 20px;">
+            開始使用 LIMEAT
+          </div>
+        </div>
+      </mu-carousel-item>
+    </mu-carousel>
     <el-row>
       <el-col :span="8" v-for="(btn, index) in buttons" :key="index + 'b'">
-        <div :class="{ isBoxShadow: page !== index + 1 }"
+        <div :class="{ isBoxShadow: page !== index }"
           class="belowBtn"
           :style="{ backgroundColor: btn.bgColor, color: btn.color }"
-          @click="page = index + 1">
+          @click="page = index">
           {{ btn.label }}
         </div>
       </el-col>
@@ -106,10 +115,27 @@ export default {
       showLogo: false,
       isActive: false,
       nowSelect: 2,
-      page: 3,
+      page: 0,
       count: 0,
       selectedPrice: '',
       flavorSelect: [],
+      typeSelect: [],
+      flavors: [
+        { type: 'taiwanese', label: '台式料理' },
+        { type: 'korean', label: '日韓料理' },
+        { type: 'american', label: '美式料理' },
+        { type: 'taliand', label: '泰越料理' },
+        { type: 'italian', label: '義法料理' },
+        { type: 'vergin', label: '素食料理' }
+      ],
+      types: [
+        { type: 'rice', label: '飯食類' },
+        { type: 'noodle', label: '麵食類' },
+        { type: 'soup', label: '粥湯類' },
+        { type: 'dessert', label: '麵包甜點' },
+        { type: 'drink', label: '手搖飲料' },
+        { type: 'veg', label: '蔬果輕食' }
+      ],
       prices: [
         '100元以內',
         '100-150元',
@@ -138,11 +164,10 @@ export default {
   },
   mounted() {
     if (this.register.status === 2) {
-      this.page = 3;
-      this.$refs.myScroll.scrollTop = 230;
+      this.page = 2;
     }
     else {
-      this.page = 1;
+      this.page = 0;
     }
   },
   computed: {
@@ -169,6 +194,32 @@ export default {
       else {
         this.selectedPrice = price;
       }
+    },
+    getFlavorSelected() {
+      console.log(this.flavorSelect);
+      this.page = 1;
+    },
+    getTypeSelected() {
+      console.log(this.typeSelect);
+      this.page = 2;
+    },
+    getType(type) {
+      const position = this.typeSelect.indexOf(type);
+      if (position === -1) {
+        this.typeSelect.push(type);
+      }
+      else {
+        this.typeSelect.splice(position, 1);
+      }
+    },
+    getFlavor(flavor) {
+      const position = this.flavorSelect.indexOf(flavor);
+      if (position === -1) {
+        this.flavorSelect.push(flavor);
+      }
+      else {
+        this.flavorSelect.splice(position, 1);
+      }
     }
   }
 }
@@ -186,6 +237,16 @@ export default {
     border: 1px solid rgb(112, 112, 112);
     border-radius: 50%;
     margin: 0 auto;
+    margin-top: 5px;
+  }
+  .circle1 {
+    width: 25vw;
+    height: 25vw;
+    background-color: rgb(255, 242, 226);
+    border: 1px solid rgb(112, 112, 112);
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 5px;
   }
   .isActive {
     opacity: 1;
@@ -199,6 +260,14 @@ export default {
   .isSelect {
     box-shadow: 0 0 0 3px white;
     color:rgb(255, 255, 255);
+  }
+  .isInTypeList {
+    box-shadow: inset 0 0 0 5px rgb(15, 80, 106);
+    border: none;
+  }
+  .isInFlavorList {
+    box-shadow: inset 0 0 0 5px rgb(225, 89, 54);
+    border: none;
   }
   .priceBar {
     background-color: rgb(240, 140, 105);
@@ -215,20 +284,25 @@ export default {
   }
   .price {
     background-color: rgb(237, 113, 70);
-    height: calc(100vh - 90px);
+    height: calc(100vh - 80px);
     overflow: auto;
     padding-top: 40px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
   }
   .flavor {
     background-color: rgb(255, 242, 226);
     padding-top: 40px;
-    height: calc(100vh - 90px);
+    padding-bottom: 30px;
+    height: calc(100vh - 80px);
     overflow: auto;
   }
   .type {
     background-color: rgb(252, 177, 74);
     height: calc(100vh - 90px);
+    padding-top: 40px;
+    padding-bottom: 30px;
+    height: calc(100vh - 80px);
+    overflow: auto;
   }
   .btn {
     transition: 0.5s;

@@ -4,7 +4,10 @@ const state = {
     user: {
         detail: {
             lat: '',
-            long: ''
+            long: '',
+            firstName: '',
+            lastName: '',
+            birth: ''
         },
         signUp: {
             account: '',
@@ -15,7 +18,7 @@ const state = {
     register: {
         status: '',
         phone: '',
-        code: ''
+        code: '',
     }
 }
 
@@ -30,6 +33,11 @@ const mutations = {
         state.register.phone = payload.phone;
         state.register.code = payload.code;
         state.register.status = payload.status;
+    },
+    RECEIVE_USER_DETAIL(state, payload) {
+        state.user.detail.firstName = payload.firstName;
+        state.user.detail.lastName = payload.lastName;
+        state.user.detail.birth = payload.birth;
     }
 }
 
@@ -45,6 +53,12 @@ const actions = {
             code += random[index];
         }
         commit('RECEIVE_USER_PHONE_DATE', { phone: phone, code: code, status: status });
+    },
+    saveUserData({ commit, state }, payload) {
+        const firstName = payload.firstName;
+        const lastName = payload.lastName;
+        const birth = payload.birth;
+        commit('RECEIVE_USER_DETAIL', { firstName, lastName, birth });
     }
 }
 

@@ -11,7 +11,7 @@
     <!-- 登入按鈕 -->
     <div class="button btnSignIn" style="margin-top: 10%;" @click="goToPage('/signIn')">SIGN IN</div>
     <br>
-    <div class="button btnSignUp" style="margin-top: 0px;">SIGN UP</div>
+    <div class="button btnSignUp" style="margin-top: -5px;" @click="goToPage('/signUp')">SIGN UP</div>
     <div style="height: 80px;"></div>
   </div>
 </template>

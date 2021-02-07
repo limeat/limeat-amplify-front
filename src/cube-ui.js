@@ -6,8 +6,10 @@ import Vue from 'vue'
 import {
   /* eslint-disable no-unused-vars */
   Button,
+  DatePicker,
   Slide
 } from 'cube-ui'
 
 Vue.use(Button)
+Vue.use(DatePicker)
 Vue.use(Slide)

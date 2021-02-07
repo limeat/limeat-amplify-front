@@ -41,6 +41,12 @@
   color: #fff;
 }
 
+.btnType {
+  background-color: rgb(255, 242, 226);
+  border-color: rgb(255, 242, 226);
+  color: rgb(242, 116, 73);
+}
+
 .btnSignUp {
   background-color: rgb(255, 180, 75);
   border-color: rgb(255, 180, 75);
@@ -115,7 +121,7 @@
 .el-input__inner {
   border-radius: 25px;
   height: 50px;
-  border: 1px solid rgb(242,116,73, 0.5);
+  border: 1px solid rgb(242, 116, 73);
 }
 
 </style>

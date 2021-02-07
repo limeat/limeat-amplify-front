@@ -35,8 +35,10 @@
             <img src="../../assets/google.png" width="70">
           </el-col>
         </el-row>
-        <div style="color: rgb(112,112,112); margin-top: 15px; font-size: 15px;">還不是用戶嗎？<span style="color: rgb(242,116,73)">註冊</span></div>
-        <div style="height: 50px;"></div>
+        <div style="color: rgb(112,112,112); margin-top: 15px; font-size: 15px;">還不是用戶嗎？
+          <span style="color: rgb(242,116,73)" @click="gotoPage('/signUp')">註冊</span>
+        </div>
+        <div style="height: 10px;"></div>
       </div>
     </div>
   </div>
@@ -117,6 +119,10 @@ export default {
 </script>
 
 <style scoped>
+.home {
+  height: 100vh;
+  overflow: auto;
+}
 /* .button {
   width: 280px;
   height: 50px;

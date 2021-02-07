@@ -3,6 +3,8 @@ import './cube-ui'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import ElementUI from 'element-ui'
+import MuseUI from 'muse-ui'
+// import 'muse-ui/dist/muse-ui.css';
 
 import App from './App.vue'
 import router from './router'
@@ -14,6 +16,7 @@ Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
+Vue.use(MuseUI)
 
 Vue.directive('focus', {
   inserted: function (el) {

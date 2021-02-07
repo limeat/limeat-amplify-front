@@ -106,6 +106,9 @@ export default {
       this.codeArr = '';
       this.setTime();
       this.getVerCode({ phone: this.register.phone, status: 2 });
+      setTimeout(() => {
+        alert(`你的驗證碼為：${this.register.code}`);
+      }, 1000)
     },
     checkCode() {
       if (this.codeArr === this.register.code) {
