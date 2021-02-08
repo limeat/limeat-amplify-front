@@ -266,10 +266,8 @@ export default {
     left: 100%;
   }
   .circle {
-    width: calc((100vh - 80px) / 7);
-    height: calc((100vh - 80px) / 7);
-    max-width: 90px;
-    max-height: 90px;
+    width: 90px;
+    height: 90px;
     background-color: rgb(252, 177, 74);
     border: 1px solid rgb(112, 112, 112);
     border-radius: 50%;
@@ -277,10 +275,8 @@ export default {
     margin-top: 0px;
   }
   .circle1 {
-    width: calc((100vh - 80px) / 7);
-    height: calc((100vh - 80px) / 7);
-    max-width: 90px;
-    max-height: 90px;
+    width: 90px;
+    height: 90px;
     background-color: rgb(255, 242, 226);
     border: 1px solid rgb(112, 112, 112);
     border-radius: 50%;
