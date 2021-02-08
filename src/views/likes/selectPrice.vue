@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
+      <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
+    </div>
     <div class="flavor" key="flavor" :class="{ isShow: page === 0 }">
       <!-- 標題 -->
       <el-row>
@@ -76,7 +79,7 @@
       <button :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
         class="button btnStart"
         style="margin-top: 20px;"
-        @click="goToPage('/checkData')">
+        @click="goToPage('/main')">
         開始使用 LIMEAT
       </button>
     </div>
@@ -112,6 +115,7 @@ export default {
       nowSelect: 2,
       page: 0,
       count: 0,
+      loadingBar: false,
       selectedPrice: '',
       flavorSelect: [],
       typeSelect: [],
@@ -181,6 +185,10 @@ export default {
       this.count += 2
     },
     goToPage(route) {
+      this.loadingBar = true;
+      setTimeout(() => {
+        this.loadingBar = false;
+      }, 2000);
       this.setDefaultLikes({
         flavors: this.flavorSelect,
         types: this.typeSelect,
@@ -230,6 +238,26 @@ export default {
   .home {
     background-color: rgb(15, 80, 106);
     height: 100vh;
+  }
+  .showLoading {
+    opacity: 0.8;
+    z-index: 100000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: black;
+    height: 100vh;
+    transition: 0.5s;
+  }
+  .center_img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+  .noShowLoading {
+    opacity: 0;
+    z-index: 0;
   }
   .isShow {
     left: 0;

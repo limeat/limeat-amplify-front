@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
+      <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
+    </div>
     <img src="../../assets/Icon-arrow-left.svg" class="arrow" @click="gotoPage('/')">
     <div style="height: 28px;"></div>
     <div style="font-size: 28px; color: rgb(112,112,112)">註冊</div>
@@ -55,7 +58,8 @@ export default {
       lastName: '',
       birth: '',
       phone: '',
-      notCompleted: false
+      notCompleted: false,
+      loadingBar: false
     }
   },
   mounted() {
@@ -96,6 +100,10 @@ export default {
       }
       else {
         this.notCompleted = false;
+        this.loadingBar = true;
+        setTimeout(() => {
+          this.loadingBar = false;
+        }, 2000);
         this.getVerCode({ phone: this.phone, status: 1 });
         this.saveUserData({ firstName: this.firstName, lastName: this.lastName, birth: this.birth });
         this.$router.push('/phoneVer');
@@ -123,6 +131,26 @@ export default {
 .home {
   height: 100vh;
   overflow: auto;
+}
+.showLoading {
+  opacity: 0.8;
+  z-index: 100000;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: black;
+  height: 100vh;
+  transition: 0.5s;
+}
+.center_img {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+.noShowLoading {
+  opacity: 0;
+  z-index: 0;
 }
 .arrow {
   position: absolute;
