@@ -7,10 +7,10 @@
       <!-- 姓名 -->
       <el-row :gutter="10">
         <el-col :span="10">
-          <el-input style="width: 100%;" v-model="firstName" placeholder="姓"></el-input>
+          <input style="width: 100%;" v-model="firstName" placeholder="姓"/>
         </el-col>
         <el-col :span="14">
-          <el-input style="width: 100%;" v-model="lastName" placeholder="名"></el-input>
+          <input style="width: 100%;" v-model="lastName" placeholder="名"/>
         </el-col>
       </el-row>
       <!-- 生日 -->
@@ -25,10 +25,9 @@
       <!-- 手機號碼 -->
       <el-row :gutter="10" style="margin-top: 25px;">
         <el-col :span="24">
-          <el-input style="width: 100%;"
+          <input style="width: 100%;"
             v-model="phone"
-            placeholder="手機號碼">
-          </el-input>
+            placeholder="手機號碼"/>
         </el-col>
       </el-row>
     </div>

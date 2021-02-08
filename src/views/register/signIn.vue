@@ -9,7 +9,7 @@
     </div>
     <div style="margin: 46px auto;">
       <!-- 帳號 -->
-      <el-input style="width: 80%;" v-model="account" placeholder="手機號碼"></el-input>
+      <input style="width: 80%;" v-model="account" placeholder="手機號碼"/>
       <div v-if="notUser" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">此號碼尚未註冊或輸入錯誤</div>
       <!-- 密碼 -->
       <div class="button btnSignUp" style="margin-top: 25px;" @click="checkPhone">取得手機驗證碼</div>

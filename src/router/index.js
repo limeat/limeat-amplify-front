@@ -40,6 +40,13 @@ const routes = [
     }
   },
   {
+    path: '/test',
+    name: 'test',
+    component: resolve => {
+      require(['@/views/test.vue'], resolve)
+    }
+  },
+  {
     path: '/phoneVer',
     name: 'phoneVer',
     component: resolve => {

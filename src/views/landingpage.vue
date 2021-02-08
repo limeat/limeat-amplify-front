@@ -9,9 +9,8 @@
       <img src="../assets/LIMeat.svg" width="168" class="position logo_img">
     </div>
     <!-- 登入按鈕 -->
-    <div class="button btnSignIn" style="margin-top: 10%;" @click="goToPage('/signIn')">SIGN IN</div>
-    <br>
-    <div class="button btnSignUp" style="margin-top: -5px;" @click="goToPage('/signUp')">SIGN UP</div>
+    <button class="button btnSignIn" @click="goToPage('/signIn')" style="margin-top: 20px;">SIGN IN</button>
+    <button class="button btnSignUp" @click="goToPage('/signUp')" style="margin-top: 30px;">SIGN UP</button>
     <div style="height: 80px;"></div>
   </div>
 </template>

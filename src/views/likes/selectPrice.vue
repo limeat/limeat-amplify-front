@@ -1,103 +1,97 @@
 <template>
   <div class="home">
-    <mu-carousel :active="page" :hide-controls="true" :hide-indicators="true" :cycle="false" style="height: calc(100vh - 90px); overflow: auto;">
-      <mu-carousel-item>
-        <div class="flavor">
-        <!-- 標題 -->
-        <el-row>
-          <el-col :span="7" style="text-align: right;">
-            <img style="margin-top: 10px;" src="../../assets/Icon-chart-line.svg"/>
-          </el-col>
-          <el-col :span="10" style="text-align: center;">
-            <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
-            <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">口味喜好</div>
-          </el-col>
-          <el-col :span="7" style="text-align: left;">
-            <img src="../../assets/Icon-message-circle.svg"/>
-          </el-col>
-        </el-row>
-        <!-- 選項 -->
-        <div style="width: 80%; margin: 0 auto;">
-          <div v-for="(flavor, idx) in flavors" :key="idx + 'f'" style="width: 50%; padding: 10px; display: inline-block;">
-            <div :class="{ isInFlavorList: flavorSelect.indexOf(flavor.type) !== -1 }"
-              class="circle"
-              @click="getFlavor(flavor.type)">
-            </div>
-            <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
+    <div class="flavor" key="flavor" :class="{ isShow: page === 0 }">
+      <!-- 標題 -->
+      <el-row>
+        <el-col :span="7" style="text-align: right;">
+          <img style="margin-top: 10px;" src="../../assets/Icon-chart-line.svg"/>
+        </el-col>
+        <el-col :span="10" style="text-align: center;">
+          <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
+          <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">口味喜好</div>
+        </el-col>
+        <el-col :span="7" style="text-align: left;">
+          <img src="../../assets/Icon-message-circle.svg"/>
+        </el-col>
+      </el-row>
+      <!-- 選項 -->
+      <div style="width: 80%; margin: 0 auto;">
+        <div v-for="(flavor, idx) in flavors" :key="idx + 'f'" style="width: 50%; padding: 10px; display: inline-block;">
+          <div :class="{ isInFlavorList: flavorSelect.indexOf(flavor.type) !== -1 }"
+            class="circle"
+            @click="getFlavor(flavor.type)">
           </div>
-        </div>
-        <div :class="{ notActive: flavorSelect.length < 1, isActive:  flavorSelect.length >= 1 }"
-          class="button btnSignIn"
-          style="margin-top: 25px;"
-          @click="getFlavorSelected">
-          NEXT
+          <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
         </div>
       </div>
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <div class="type">
-        <!-- 標題 -->
-        <el-row>
-          <el-col :span="7" style="text-align: right;">
-            <img style="margin-top: 10px;" src="../../assets/Icon-chart-line-orange.svg"/>
-          </el-col>
-          <el-col :span="10" style="text-align: center;">
-            <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
-            <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">類別喜好</div>
-          </el-col>
-          <el-col :span="7" style="text-align: left;">
-            <img src="../../assets/Icon-message-circle-white.svg"/>
-          </el-col>
-        </el-row>
-        <!-- 選項 -->
-        <div style="width: 80%; margin: 0 auto;">
-          <div v-for="(type, idx) in types" :key="idx + 't'" style="width: 50%; padding: 10px; display: inline-block;">
-            <div :class="{ isInTypeList: typeSelect.indexOf(type.type) !== -1 }"
-              class="circle1"
-              @click="getType(type.type)">
-            </div>
-            <div style="font-size: 15px; margin-top: 5px;">{{ type.label }}</div>
+      <div :class="{ notActive: flavorSelect.length < 1, isActive:  flavorSelect.length >= 1 }"
+        class="button btnSignIn"
+        style="margin-top: 25px;"
+        @click="getFlavorSelected">
+        NEXT
+      </div>
+    </div>
+    <!-- 類別選擇 -->
+    <div class="type" key="type" :class="{ isShow: page === 1, noShow: page === 0 }">
+      <el-row>
+        <el-col :span="7" style="text-align: right;">
+          <img style="margin-top: 10px;" src="../../assets/Icon-chart-line-orange.svg"/>
+        </el-col>
+        <el-col :span="10" style="text-align: center;">
+          <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
+          <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">類別喜好</div>
+        </el-col>
+        <el-col :span="7" style="text-align: left;">
+          <img src="../../assets/Icon-message-circle-white.svg"/>
+        </el-col>
+      </el-row>
+      <!-- 選項 -->
+      <div style="width: 80%; margin: 0 auto;">
+        <div v-for="(type, idx) in types" :key="idx + 't'" style="width: 50%; padding: 10px; display: inline-block;">
+          <div :class="{ isInTypeList: typeSelect.indexOf(type.type) !== -1 }"
+            class="circle1"
+            @click="getType(type.type)">
           </div>
-        </div>
-        <div :class="{ notActive: typeSelect.length < 1, isActive:  typeSelect.length >= 1 }"
-          class="button btnType"
-          style="margin-top: 25px;"
-          @click="getTypeSelected">
-          NEXT
+          <div style="font-size: 15px; margin-top: 5px;">{{ type.label }}</div>
         </div>
       </div>
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <!-- 價格區間 -->
-        <div class="price">
-          <div style="font-size: 28px; color: #fff;">價格區間</div>
-          <div style="font-size: 15px; color: #fff;">選擇您一餐含運費的預算價錢</div>
-          <div v-for="(price, idx) in prices"
-            class="priceBar"
-            :class="{ isSelect: selectedPrice === price, notSelect: (selectedPrice !== price || selectedPrice !== '') }"
-            @click="selectPrice(price)"
-            :key="idx + 'p'">
-            {{ price }}
+      <div :class="{ notActive: typeSelect.length < 1, isActive:  typeSelect.length >= 1 }"
+        class="button btnType"
+        style="margin-top: 25px;"
+        @click="getTypeSelected">
+        NEXT
+      </div>
+    </div>
+    <!-- 價格區間 -->
+    <div class="price" key="price" :class="{ isShow: page === 2, noShow: page !== 2 }">
+      <div style="font-size: 28px; color: #fff;">價格區間</div>
+      <div style="font-size: 15px; color: #fff;">選擇您一餐含運費的預算價錢</div>
+      <div v-for="(price, idx) in prices"
+        class="priceBar"
+        :class="{ isSelect: selectedPrice === price, notSelect: (selectedPrice !== price || selectedPrice !== '') }"
+        @click="selectPrice(price)"
+        :key="idx + 'p'">
+        {{ price }}
+      </div>
+      <div :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
+        class="button btnStart"
+        style="margin-top: 20px;"
+        @click="goToPage('/checkData')">
+        開始使用 LIMEAT
+      </div>
+    </div>
+    <div class="btn_group">
+      <el-row>
+        <el-col :span="8" v-for="(btn, index) in buttons" :key="index + 'b'">
+          <div :class="{ isBoxShadow: page !== index }"
+            class="belowBtn"
+            :style="{ backgroundColor: btn.bgColor, color: btn.color }"
+            @click="page = index">
+            {{ btn.label }}
           </div>
-          <div :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
-            class="button btnStart"
-            style="margin-top: 20px;"
-            @click="goToPage('/checkData')">
-            開始使用 LIMEAT
-          </div>
-        </div>
-      </mu-carousel-item>
-    </mu-carousel>
-    <el-row>
-      <el-col :span="8" v-for="(btn, index) in buttons" :key="index + 'b'">
-        <div :class="{ isBoxShadow: page !== index }"
-          class="belowBtn"
-          :style="{ backgroundColor: btn.bgColor, color: btn.color }"
-          @click="page = index">
-          {{ btn.label }}
-        </div>
-      </el-col>
-    </el-row>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -237,6 +231,12 @@ export default {
     background-color: rgb(15, 80, 106);
     height: 100vh;
   }
+  .isShow {
+    left: 0;
+  }
+  .noShow {
+    left: 100%;
+  }
   .circle {
     width: 25vw;
     height: 25vw;
@@ -295,6 +295,10 @@ export default {
     overflow: auto;
     padding-top: 40px;
     padding-bottom: 30px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    transition: 0.3s;
   }
   .flavor {
     background-color: rgb(255, 242, 226);
@@ -302,6 +306,10 @@ export default {
     padding-bottom: 30px;
     height: calc(100vh - 80px);
     overflow: auto;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    transition: 0.3s;
   }
   .type {
     background-color: rgb(252, 177, 74);
@@ -310,6 +318,15 @@ export default {
     padding-bottom: 30px;
     height: calc(100vh - 80px);
     overflow: auto;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    transition: 0.3s;
+  }
+  .btn_group {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
   }
   .btn {
     transition: 0.5s;

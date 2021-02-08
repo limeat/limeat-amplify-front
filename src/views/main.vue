@@ -4,10 +4,12 @@
     <div id="topBar">
       <el-row :gutter="10">
         <el-col :span="3">
-          <img src="../assets/Adjust.svg"/>
+          <div style="position: relative; width: 100%;">
+            <img src="../assets/Adjust.svg" width="90%" class="img"/>
+          </div>
         </el-col>
         <el-col :span="18" style="line-height: 45px; position: relative;">
-          <el-input style="width: 100%;"></el-input>
+          <input style="width: 100%;"/>
           <i class="el-icon-search search"></i>
         </el-col>
         <el-col :span="3" style="line-height: 65px; position: relative;">
@@ -30,9 +32,15 @@
       </el-row>
     </div>
     <!-- 內容 -->
-    <div style="height: 300px; position: relative; margin-top: 20px;">
+    <div style="height: 200px; position: relative; margin-top: 20px;">
       <div class="info">
         <div style="font-size: 18px; color: rgb(225, 89, 54); font-weight: 500; text-align: right;">預算管理</div>
+      </div>
+    </div>
+    <!-- 內容 -->
+    <div style="height: 200px; position: relative; margin-top: 20px;">
+      <div class="info">
+        <div style="font-size: 18px; color: rgb(225, 89, 54); font-weight: 500; text-align: right;">推薦餐點</div>
       </div>
     </div>
     <!-- 選單 -->
@@ -100,11 +108,17 @@ export default {
 <style scoped>
 #topBar {
   padding: 20px 15px 0 15px;
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
 }
 #selectBar {
   width: 95%;
   margin-top: 10px;
   margin: 0 auto;
+}
+.img {
+  margin-top: 30%;
 }
 .filterBar {
   padding: 5px 10px;
