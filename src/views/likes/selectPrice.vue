@@ -297,12 +297,10 @@ export default {
     color:rgb(255, 255, 255);
   }
   .isInTypeList {
-    box-shadow: inset 0 0 0 5px rgb(15, 80, 106);
-    border: none;
+    border: 4px solid rgb(15, 80, 106);
   }
   .isInFlavorList {
-    box-shadow: inset 0 0 0 5px rgb(225, 89, 54);
-    border: none;
+    border: 4px solid rgb(225, 89, 54);
   }
   .priceBar {
     background-color: rgb(240, 140, 105);
