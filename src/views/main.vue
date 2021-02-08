@@ -8,7 +8,7 @@
             <img src="../assets/Adjust.svg" width="90%" class="img"/>
           </div>
         </el-col>
-        <el-col :span="18" style="line-height: 45px; position: relative;">
+        <el-col :span="18" style="line-height: 40px; position: relative;">
           <input style="width: 100%;"/>
           <i class="el-icon-search search"></i>
         </el-col>
@@ -43,6 +43,7 @@
         <div style="font-size: 18px; color: rgb(225, 89, 54); font-weight: 500; text-align: right;">推薦餐點</div>
       </div>
     </div>
+    <div style="height: 50px;"></div>
     <!-- 選單 -->
     <div class="bottom_nav">
       <div class="bottomNav">

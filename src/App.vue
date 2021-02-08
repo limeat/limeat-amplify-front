@@ -90,6 +90,7 @@ input:focus{
 input {
   border-radius: 25px;
   height: 50px;
+  line-height: 50px;
   border: 1px solid rgb(242, 116, 73);
   font-size: 15px;
   padding-left: 15px;

@@ -23,7 +23,7 @@
         </el-col>
       </el-row>
       <!-- 手機號碼 -->
-      <el-row :gutter="10" style="margin-top: 25px;">
+      <el-row :gutter="10" style="margin-top: 20px;">
         <el-col :span="24">
           <input style="width: 100%;"
             v-model="phone"

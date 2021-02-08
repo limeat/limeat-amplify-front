@@ -24,12 +24,12 @@
           <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
         </div>
       </div>
-      <div :class="{ notActive: flavorSelect.length < 1, isActive:  flavorSelect.length >= 1 }"
+      <button :class="{ notActive: flavorSelect.length < 1, isActive:  flavorSelect.length >= 1 }"
         class="button btnSignIn"
         style="margin-top: 25px;"
         @click="getFlavorSelected">
         NEXT
-      </div>
+      </button>
     </div>
     <!-- 類別選擇 -->
     <div class="type" key="type" :class="{ isShow: page === 1, noShow: page === 0 }">
@@ -55,12 +55,12 @@
           <div style="font-size: 15px; margin-top: 5px;">{{ type.label }}</div>
         </div>
       </div>
-      <div :class="{ notActive: typeSelect.length < 1, isActive:  typeSelect.length >= 1 }"
+      <button :class="{ notActive: typeSelect.length < 1, isActive:  typeSelect.length >= 1 }"
         class="button btnType"
         style="margin-top: 25px;"
         @click="getTypeSelected">
         NEXT
-      </div>
+      </button>
     </div>
     <!-- 價格區間 -->
     <div class="price" key="price" :class="{ isShow: page === 2, noShow: page !== 2 }">
@@ -73,12 +73,12 @@
         :key="idx + 'p'">
         {{ price }}
       </div>
-      <div :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
+      <button :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
         class="button btnStart"
         style="margin-top: 20px;"
         @click="goToPage('/checkData')">
         開始使用 LIMEAT
-      </div>
+      </button>
     </div>
     <div class="btn_group">
       <el-row>
