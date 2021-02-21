@@ -1,7 +1,7 @@
 /* eslint-disable */
 import axios from 'axios'
 
-const GRAPHQL_API = 'https://3.139.153.191/'
+const GRAPHQL_API = 'http://3.139.153.191:4000/'
 
 const state = {
     user: {
