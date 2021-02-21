@@ -18,19 +18,20 @@
       </mu-row>
       <!-- 生日 -->
       <div class="birthSelect" @click="showDatePicker">
-        {{ birth ? birth : 'YYYY/MM/DD' }}
-        <i class="el-icon-caret-bottom seletBar"></i>
+        {{ birth ? birth : 'YYYYMMDD' }}
+        <div class="seletBar"></div>
       </div>
       <!-- 手機號碼 -->
       <div style="margin-top: 25px;">
         <input style="width: 100%;"
           v-model="phone"
-          placeholder="手機號碼"/>
+          placeholder="手機號碼，例：+886912345678"/>
       </div>
     </div>
     <!-- 按鈕 -->
     <div class="button btnSignUp" @click="checkPhone">取得手機驗證碼</div>
     <div v-if="notCompleted" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">請確認資料填寫完成</div>
+    <div v-if="invalidPhone" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">手機號碼格式錯誤</div>
     <div style="color: rgb(112,112,112); margin-top: 15px; font-size: 15px;">已經有帳號了？
       <span style="color: rgb(242,116,73)" @click="gotoPage('/signIn')">登入</span>
     </div>
@@ -52,6 +53,7 @@ export default {
       birth: '',
       phone: '',
       notCompleted: false,
+      invalidPhone: false,
       loadingBar: false
     }
   },
@@ -60,6 +62,7 @@ export default {
   methods: {
     ...register.mapActions({
       getVerCode: 'getVerCode',
+      createAccount: 'createAccount',
       saveUserData: 'saveUserData'
     }),
     gotoPage(route) {
@@ -82,7 +85,7 @@ export default {
       usableMonth = parseInt(month) < 10 ? `0${month}` : month;
       usableDate = parseInt(date) < 10 ? `0${date}` : date;
       // 產出時間
-      this.birth = `${year}/${usableMonth}/${usableDate}`
+      this.birth = `${year}${usableMonth}${usableDate}`
     },
     cancelHandle() {
       console.log('取消');
@@ -90,16 +93,49 @@ export default {
     checkPhone() {
       if (!this.firstName || !this.lastName || !this.birth || !this.phone) {
         this.notCompleted = true;
+        this.invalidPhone = false;
+      }
+      else if (this.phone.indexOf('+886') === -1) {
+        this.notCompleted = false;
+        this.invalidPhone = true;
       }
       else {
         this.notCompleted = false;
+        this.invalidPhone = false;
+        // Loading 動畫
         this.loadingBar = true;
-        setTimeout(() => {
-          this.loadingBar = false;
-        }, 2000);
-        this.getVerCode({ phone: this.phone, status: 1 });
+        setTimeout(() => { this.loadingBar = false }, 2000);
+        // 暫存使用者資料
         this.saveUserData({ firstName: this.firstName, lastName: this.lastName, birth: this.birth });
-        this.$router.push('/phoneVer');
+        
+        const postData = {
+          phone: this.phone, firstName: this.firstName, lastName: this.lastName, birth: parseInt(this.birth)
+        }
+        this.createAccount(postData).then((res) => {
+          if (res.data.data) {
+            const statusCode = res.data.data.createAccount.status;
+            if (statusCode === 200) {
+              // 取得驗證碼
+              this.getVerCode({ phone: this.phone, status: 1 })
+                .then(() => {
+                  this.$router.push('/phoneVer');
+                })
+            }
+            else if (statusCode === 409) {
+              alert('此電話已被註冊！');
+            }
+            else {
+              alert('發生錯誤，請重新嘗試 ' + statusCode);
+            }
+          }
+          else {
+            alert('發生錯誤，請重新嘗試');
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          alert('發生錯誤，請重新嘗試');
+        })
       }
     },
     showDatePicker() {
@@ -109,11 +145,12 @@ export default {
           min: new Date(1990, 1, 1),
           max: new Date(),
           value: new Date(),
+          confirmTxt: '確定',
+          title: '出生年月日',
           onSelect: this.selectHandle,
           onCancel: this.cancelHandle
         })
       }
-
       this.datePicker.show()
     }
   }
@@ -148,17 +185,17 @@ export default {
 .arrow {
   position: absolute;
   top: 30px;
-  left: 7%;
+  left: 40px;
 }
 .seletBar {
   position: absolute;
   right: 20px;
-  top: 15px;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 12px;
-  padding: 4px;
-  background-color: rgb(242, 116, 73);
+  top: 20px;
+  width: 0;
+  height: 0;
+  border-width: 7px;
+  border-style: solid;
+  border-color: rgb(242, 116, 73) transparent transparent transparent;
 }
 .birthSelect {
   width: 100%;

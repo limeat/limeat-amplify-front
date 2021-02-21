@@ -1,7 +1,7 @@
 /* eslint-disable */
 import axios from 'axios'
 
-const GRAPHQL_API = 'http://localhost:4000/'
+const GRAPHQL_API = 'https://3.139.153.191/'
 
 const state = {
     user: {
@@ -54,17 +54,6 @@ const mutations = {
 
 
 const actions = {
-    getVerCode({ commit, state }, payload) {
-        const phone = payload.phone;
-        const status = payload.status;
-        const random = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-        let code = '';
-        for (let e = 0; e < 6; e += 1) {
-            const index = Math.floor(Math.random() * 10);
-            code += random[index];
-        }
-        commit('RECEIVE_USER_PHONE_DATE', { phone: phone, code: code, status: status });
-    },
     saveUserData({ commit, state }, payload) {
         const firstName = payload.firstName;
         const lastName = payload.lastName;
@@ -73,6 +62,62 @@ const actions = {
     },
     setDefaultLikes({ commit, state }, payload) {
         commit('RECEIVE_USER_LIKES', payload);
+    },
+    verifyPhone({ commit, state }, payload) {
+        const phone = payload.phone;
+        const code = payload.code;
+        return axios({
+            method: 'POST',
+            url: GRAPHQL_API,
+            data: {
+                query: `
+                    mutation {
+                        verifyCellphone(
+                            payload: {
+                                cellphone: "${phone}",
+                                verificationCode: "${code}"
+                            }
+                        ){
+                            status,
+                            message,
+                            token
+                        }
+                    }
+                `
+            }
+        })
+            .then((res) => {
+                return res;
+            })
+            .catch((err) => {
+                return err;
+            })
+    },
+    getVerCode({ commit, state }, payload) {
+        const phone = payload.phone;
+        const status = payload.status;
+        return axios({
+            method: 'POST',
+            url: GRAPHQL_API,
+            data: {
+                query: `
+                    mutation {
+                        sendSmsVerificationCode(
+                            payload: {
+                                cellphone: "${phone}"
+                            }
+                        ){
+                            status,
+                            message
+                        }
+                    }
+                `
+            }
+        })
+        .then((res) => {
+            commit('RECEIVE_USER_PHONE_DATE', { phone: phone, code: '', status: status });
+            return res;
+        })
     },
     createAccount({ commit, state }, payload) {
         const phone = payload.phone;
@@ -125,6 +170,9 @@ const actions = {
         })
         .then((res) => {
             return res;
+        })
+        .catch((err) => {
+            return err;
         })
     }
 }

@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
+      <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
+    </div>
     <img src="../../assets/Icon-arrow-left.svg" class="arrow" @click="gotoPage('/')">
     <div style="height: 28px;"></div>
     <div style="font-size: 28px; color: rgb(112,112,112)">登入</div>
@@ -9,8 +12,8 @@
     </div>
     <div style="margin: 46px auto;">
       <!-- 帳號 -->
-      <input style="width: 80%;" v-model="account" placeholder="手機號碼"/>
-      <div v-if="notUser" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">此號碼尚未註冊或輸入錯誤</div>
+      <input style="width: 80%;" v-model="account" placeholder="手機號碼，例：+886912345678"/>
+      <div v-if="notUser" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">{{ errorText }}</div>
       <!-- 密碼 -->
       <button class="button btnSignUp" style="margin-top: 25px;" @click="checkPhone">取得手機驗證碼</button>
       <div style="margin: 25px auto; width: 80%;">
@@ -50,14 +53,6 @@ import { mapGetters, mapActions, createNamespacedHelpers } from 'vuex';
 const register = createNamespacedHelpers('register');
 
 
-// const loginMutation = gql`
-//   mutation login($email: String!, $password: String!) {
-//     login(payload: { email: $email, password: $password }) {
-//       status, message, token
-//     }
-//   }
-// `;
-
 
 export default {
   name: 'Home',
@@ -65,6 +60,7 @@ export default {
     return {
       showLogo: false,
       notUser: false,
+      loadingBar: false,
       account: '',
       password: '',
       errorText: '',
@@ -73,7 +69,7 @@ export default {
   },
   mounted() {
     document.body.addEventListener('focusout',()=>{     
-      window.scrollTo({ top:0 , left:0, behavior: "smooth" })
+      window.scrollTo({ top:0, left:0, behavior: "smooth" })
     })
   },
   methods: {
@@ -86,33 +82,25 @@ export default {
     checkPhone() {
       if (!this.account) {
         this.notUser = true;
+        this.errorText = '請輸入手機號碼';
+      }
+      else if (this.account.indexOf('+886') === -1) {
+        this.notUser = true;
+        this.errorText = '手機號碼格式錯誤';
       }
       else {
-        this.getVerCode({ phone: this.account, status: 2 });
-        this.$router.push('/phoneVer');
+        this.notUser = false;
+        const postData = {
+          phone: this.account, status: 2
+        };
+        this.loadingBar = true;
+        setTimeout(() => { this.loadingBar = false }, 2000);
+        // 取得驗證碼
+        this.getVerCode(postData).then(() => {
+          this.$router.push('/phoneVer');
+        })
       }
     },
-    signIn() {
-      if (!this.account) {
-        this.errorText = '請輸入信箱或手機號碼';
-      }
-      else if (!this.password) {
-        this.errorText = '請輸入密碼';
-      }
-      else {
-        this.errorText = '';
-        this.$apollo.mutate({
-          mutation: loginMutation,
-          variables: {
-            email: this.account,
-            password: this.password
-          },
-        })
-        .then(data => {
-          console.log(data);
-        })
-      }
-    }
   }
 }
 </script>
@@ -121,6 +109,26 @@ export default {
 .home {
   height: 100vh;
   overflow: auto;
+}
+.showLoading {
+  opacity: 0.8;
+  z-index: 100000;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: black;
+  height: 100vh;
+  transition: 0.5s;
+}
+.noShowLoading {
+  opacity: 0;
+  z-index: 0;
+}
+.center_img {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
 }
 /* .button {
   width: 280px;
@@ -136,7 +144,7 @@ export default {
 .arrow {
   position: absolute;
   top: 30px;
-  left: 7%;
+  left: 40px;
 }
 .color-grey {
   color:rgb(112, 112 ,112, 0.8);

@@ -168,6 +168,15 @@ export default {
     else {
       this.page = 0;
     }
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      this.$router.push('/');
+    }
+    else {
+      this.getAccountInfo({ token }).then((res) => {
+        console.log(res);
+      })
+    }
   },
   computed: {
     ...register.mapGetters({
@@ -179,7 +188,8 @@ export default {
   },
   methods: {
     ...register.mapActions({
-      setDefaultLikes: 'setDefaultLikes'
+      setDefaultLikes: 'setDefaultLikes',
+      getAccountInfo: 'getAccountInfo'
     }),
     load () {
       this.count += 2

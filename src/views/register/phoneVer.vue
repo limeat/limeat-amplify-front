@@ -62,9 +62,9 @@ export default {
   },
   mounted() {
     this.setTime();
-    setTimeout(() => {
-      alert(`你的驗證碼為：${this.register.code}`);
-    }, 1000)
+    if (!this.register.phone) {
+      this.$router.push('/');
+    }
     // document.onkeydown = function(e) {
     //   const keyValue   = window.event.keyCode;
     //   const nowLength  = _this.codeArr.length;
@@ -88,7 +88,8 @@ export default {
   },
   methods: {
     ...register.mapActions({
-      getVerCode: 'getVerCode'
+      getVerCode: 'getVerCode',
+      verifyPhone: 'verifyPhone'
     }),
     gotoPage(route) {
       this.$router.push(route);
@@ -108,22 +109,34 @@ export default {
       this.codeArr = '';
       this.setTime();
       this.getVerCode({ phone: this.register.phone, status: 2 });
-      setTimeout(() => {
-        alert(`你的驗證碼為：${this.register.code}`);
-      }, 1000)
     },
     checkCode() {
-      if (this.codeArr === this.register.code) {
-        this.loadingBar = true;
-        setTimeout(() => {
+      this.loadingBar = true;
+      setTimeout(() => {
+        this.loadingBar = false;
+      }, 2000);
+      this.verifyPhone({ phone: this.register.phone, code: this.codeArr })
+        .then((res) => {
+          if (res.data.data) {
+            const statusCode = res.data.data.verifyCellphone.status;
+            if (statusCode === 200) {
+              const token = res.data.data.verifyCellphone.token;
+              localStorage.setItem('userToken', token);
+              this.$router.push('/selectPrice');
+            }
+            else {
+              alert('驗證失敗 ' + statusCode);
+            }
+          }
+          else {
+            this.loadingBar = false;
+            alert('驗證失敗');
+          }
+        })
+        .catch((e) => {
           this.loadingBar = false;
-        }, 2000);
-        this.$router.push('/selectPrice')
-      }
-      else {
-        alert('驗證碼有誤');
-        // this.$router.push('/selectPrice')
-      }
+          alert('驗證失敗');
+        })
     },
     focusCode() {
       this.$refs.code.focus();
