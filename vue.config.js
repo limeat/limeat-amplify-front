@@ -35,7 +35,6 @@ const externals = {
   'vue-router': 'VueRouter',
   vuex: 'Vuex',
   axios: 'axios',
-  'element-ui': 'ELEMENT',
   'muse-ui': 'MuseUI'
 }
 
