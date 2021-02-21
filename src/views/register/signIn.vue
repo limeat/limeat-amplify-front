@@ -9,32 +9,32 @@
     </div>
     <div style="margin: 46px auto;">
       <!-- 帳號 -->
-      <el-input style="width: 80%;" v-model="account" placeholder="手機號碼"></el-input>
+      <input style="width: 80%;" v-model="account" placeholder="手機號碼"/>
       <div v-if="notUser" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">此號碼尚未註冊或輸入錯誤</div>
       <!-- 密碼 -->
-      <div class="button btnSignUp" style="margin-top: 25px;" @click="checkPhone">取得手機驗證碼</div>
+      <button class="button btnSignUp" style="margin-top: 25px;" @click="checkPhone">取得手機驗證碼</button>
       <div style="margin: 25px auto; width: 80%;">
-        <el-row :gutter="5">
+        <mu-row gutter>
           <!-- 分隔線 -->
-          <el-col :span="10">
+          <mu-col :span="5">
             <div class="line"></div>
-          </el-col>
-          <el-col :span="4" class="color-grey">OR</el-col>
+          </mu-col>
+          <mu-col :span="2" class="color-grey">OR</mu-col>
           <!-- 分隔線 -->
-          <el-col :span="10">
+          <mu-col :span="5">
             <div class="line"></div>
-          </el-col>
-        </el-row>
-        <el-row>
+          </mu-col>
+        </mu-row>
+        <mu-row>
           <!-- 臉書登入 -->
-          <el-col :span="12">
+          <mu-col :span="6">
             <img src="../../assets/facebook.png" width="70">
-          </el-col>
+          </mu-col>
           <!-- Google 登入 -->
-          <el-col :span="12">
+          <mu-col :span="6">
             <img src="../../assets/google.png" width="70">
-          </el-col>
-        </el-row>
+          </mu-col>
+        </mu-row>
         <div style="color: rgb(112,112,112); margin-top: 15px; font-size: 15px;">還不是用戶嗎？
           <span style="color: rgb(242,116,73)" @click="gotoPage('/signUp')">註冊</span>
         </div>

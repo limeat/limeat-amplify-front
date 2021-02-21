@@ -5,7 +5,6 @@ const cdn = {
   dev: {
     css: [
       'https://unpkg.com/muse-ui/dist/muse-ui.css',
-      'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
       'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
       'https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css'
     ],
@@ -15,7 +14,6 @@ const cdn = {
   build: {
     css: [
       'https://unpkg.com/muse-ui/dist/muse-ui.css',
-      'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
       'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
       'https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css'
     ],
@@ -24,9 +22,7 @@ const cdn = {
       'https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js',
       'https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js',
       'https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js',
-      'https://unpkg.com/element-ui/lib/index.js',
       'https://unpkg.com/muse-ui/dist/muse-ui.js',
-      'https://static.line-scdn.net/liff/edge/2/sdk.js',
       'https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js',
       'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js'
     ]

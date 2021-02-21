@@ -1,103 +1,100 @@
 <template>
   <div class="home">
-    <mu-carousel :active="page" :hide-controls="true" :hide-indicators="true" :cycle="false" style="height: calc(100vh - 90px); overflow: auto;">
-      <mu-carousel-item>
-        <div class="flavor">
-        <!-- 標題 -->
-        <el-row>
-          <el-col :span="7" style="text-align: right;">
-            <img style="margin-top: 10px;" src="../../assets/Icon-chart-line.svg"/>
-          </el-col>
-          <el-col :span="10" style="text-align: center;">
-            <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
-            <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">口味喜好</div>
-          </el-col>
-          <el-col :span="7" style="text-align: left;">
-            <img src="../../assets/Icon-message-circle.svg"/>
-          </el-col>
-        </el-row>
-        <!-- 選項 -->
-        <div style="width: 80%; margin: 0 auto;">
-          <div v-for="(flavor, idx) in flavors" :key="idx + 'f'" style="width: 50%; padding: 10px; display: inline-block;">
-            <div :class="{ isInFlavorList: flavorSelect.indexOf(flavor.type) !== -1 }"
-              class="circle"
-              @click="getFlavor(flavor.type)">
-            </div>
-            <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
+    <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
+      <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
+    </div>
+    <div class="flavor" key="flavor" :class="{ isShow: page === 0 }">
+      <!-- 標題 -->
+      <mu-row>
+        <mu-col :span="3" style="text-align: right;">
+          <img style="margin-top: 10px;" src="../../assets/Icon-chart-line.svg"/>
+        </mu-col>
+        <mu-col :span="6" style="text-align: center;">
+          <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
+          <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">口味喜好</div>
+        </mu-col>
+        <mu-col :span="3" style="text-align: left;">
+          <img src="../../assets/Icon-message-circle.svg"/>
+        </mu-col>
+      </mu-row>
+      <!-- 選項 -->
+      <div style="width: 80%; margin: 0 auto;">
+        <div v-for="(flavor, idx) in flavors" :key="idx + 'f'" style="width: 50%; padding: 10px; display: inline-block;">
+          <div :class="{ isInFlavorList: flavorSelect.indexOf(flavor.type) !== -1 }"
+            class="circle"
+            @click="getFlavor(flavor.type)">
           </div>
-        </div>
-        <div :class="{ notActive: flavorSelect.length < 1, isActive:  flavorSelect.length >= 1 }"
-          class="button btnSignIn"
-          style="margin-top: 25px;"
-          @click="getFlavorSelected">
-          NEXT
+          <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
         </div>
       </div>
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <div class="type">
-        <!-- 標題 -->
-        <el-row>
-          <el-col :span="7" style="text-align: right;">
-            <img style="margin-top: 10px;" src="../../assets/Icon-chart-line-orange.svg"/>
-          </el-col>
-          <el-col :span="10" style="text-align: center;">
-            <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
-            <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">類別喜好</div>
-          </el-col>
-          <el-col :span="7" style="text-align: left;">
-            <img src="../../assets/Icon-message-circle-white.svg"/>
-          </el-col>
-        </el-row>
-        <!-- 選項 -->
-        <div style="width: 80%; margin: 0 auto;">
-          <div v-for="(type, idx) in types" :key="idx + 't'" style="width: 50%; padding: 10px; display: inline-block;">
-            <div :class="{ isInTypeList: typeSelect.indexOf(type.type) !== -1 }"
-              class="circle1"
-              @click="getType(type.type)">
-            </div>
-            <div style="font-size: 15px; margin-top: 5px;">{{ type.label }}</div>
+      <button :class="{ notActive: flavorSelect.length < 1, isActive:  flavorSelect.length >= 1 }"
+        class="button btnSignIn"
+        style="margin-top: 25px;"
+        @click="getFlavorSelected">
+        NEXT
+      </button>
+    </div>
+    <!-- 類別選擇 -->
+    <div class="type" key="type" :class="{ isShow: page === 1, noShow: page === 0 }">
+      <mu-row>
+        <mu-col :span="3" style="text-align: right;">
+          <img style="margin-top: 10px;" src="../../assets/Icon-chart-line-orange.svg"/>
+        </mu-col>
+        <mu-col :span="6" style="text-align: center;">
+          <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
+          <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">類別喜好</div>
+        </mu-col>
+        <mu-col :span="3" style="text-align: left;">
+          <img src="../../assets/Icon-message-circle-white.svg"/>
+        </mu-col>
+      </mu-row>
+      <!-- 選項 -->
+      <div style="width: 80%; margin: 0 auto;">
+        <div v-for="(type, idx) in types" :key="idx + 't'" style="width: 50%; padding: 10px; display: inline-block;">
+          <div :class="{ isInTypeList: typeSelect.indexOf(type.type) !== -1 }"
+            class="circle1"
+            @click="getType(type.type)">
           </div>
-        </div>
-        <div :class="{ notActive: typeSelect.length < 1, isActive:  typeSelect.length >= 1 }"
-          class="button btnType"
-          style="margin-top: 25px;"
-          @click="getTypeSelected">
-          NEXT
+          <div style="font-size: 15px; margin-top: 5px;">{{ type.label }}</div>
         </div>
       </div>
-      </mu-carousel-item>
-      <mu-carousel-item>
-        <!-- 價格區間 -->
-        <div class="price">
-          <div style="font-size: 28px; color: #fff;">價格區間</div>
-          <div style="font-size: 15px; color: #fff;">選擇您一餐含運費的預算價錢</div>
-          <div v-for="(price, idx) in prices"
-            class="priceBar"
-            :class="{ isSelect: selectedPrice === price, notSelect: (selectedPrice !== price || selectedPrice !== '') }"
-            @click="selectPrice(price)"
-            :key="idx + 'p'">
-            {{ price }}
+      <button :class="{ notActive: typeSelect.length < 1, isActive:  typeSelect.length >= 1 }"
+        class="button btnType"
+        style="margin-top: 25px;"
+        @click="getTypeSelected">
+        NEXT
+      </button>
+    </div>
+    <!-- 價格區間 -->
+    <div class="price" key="price" :class="{ isShow: page === 2, noShow: page !== 2 }">
+      <div style="font-size: 28px; color: #fff;">價格區間</div>
+      <div style="font-size: 15px; color: #fff;">選擇您一餐含運費的預算價錢</div>
+      <div v-for="(price, idx) in prices"
+        class="priceBar"
+        :class="{ isSelect: selectedPrice === price, notSelect: (selectedPrice !== price || selectedPrice !== '') }"
+        @click="selectPrice(price)"
+        :key="idx + 'p'">
+        {{ price }}
+      </div>
+      <button :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
+        class="button btnStart"
+        style="margin-top: 20px;"
+        @click="goToPage('/main')">
+        開始使用 LIMEAT
+      </button>
+    </div>
+    <div class="btn_group">
+      <mu-row>
+        <mu-col :span="4" v-for="(btn, index) in buttons" :key="index + 'b'">
+          <div :class="{ isBoxShadow: page !== index }"
+            class="belowBtn"
+            :style="{ backgroundColor: btn.bgColor, color: btn.color }"
+            @click="page = index">
+            {{ btn.label }}
           </div>
-          <div :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
-            class="button btnStart"
-            style="margin-top: 20px;"
-            @click="goToPage('/checkData')">
-            開始使用 LIMEAT
-          </div>
-        </div>
-      </mu-carousel-item>
-    </mu-carousel>
-    <el-row>
-      <el-col :span="8" v-for="(btn, index) in buttons" :key="index + 'b'">
-        <div :class="{ isBoxShadow: page !== index }"
-          class="belowBtn"
-          :style="{ backgroundColor: btn.bgColor, color: btn.color }"
-          @click="page = index">
-          {{ btn.label }}
-        </div>
-      </el-col>
-    </el-row>
+        </mu-col>
+      </mu-row>
+    </div>
   </div>
 </template>
 
@@ -118,6 +115,7 @@ export default {
       nowSelect: 2,
       page: 0,
       count: 0,
+      loadingBar: false,
       selectedPrice: '',
       flavorSelect: [],
       typeSelect: [],
@@ -187,6 +185,10 @@ export default {
       this.count += 2
     },
     goToPage(route) {
+      this.loadingBar = true;
+      setTimeout(() => {
+        this.loadingBar = false;
+      }, 2000);
       this.setDefaultLikes({
         flavors: this.flavorSelect,
         types: this.typeSelect,
@@ -237,23 +239,49 @@ export default {
     background-color: rgb(15, 80, 106);
     height: 100vh;
   }
+  .showLoading {
+    opacity: 0.8;
+    z-index: 100000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: black;
+    height: 100vh;
+    transition: 0.5s;
+  }
+  .center_img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+  .noShowLoading {
+    opacity: 0;
+    z-index: 0;
+  }
+  .isShow {
+    left: 0;
+  }
+  .noShow {
+    left: 100%;
+  }
   .circle {
-    width: 25vw;
-    height: 25vw;
+    width: 90px;
+    height: 90px;
     background-color: rgb(252, 177, 74);
     border: 1px solid rgb(112, 112, 112);
     border-radius: 50%;
     margin: 0 auto;
-    margin-top: 5px;
+    margin-top: 0px;
   }
   .circle1 {
-    width: 25vw;
-    height: 25vw;
+    width: 90px;
+    height: 90px;
     background-color: rgb(255, 242, 226);
     border: 1px solid rgb(112, 112, 112);
     border-radius: 50%;
     margin: 0 auto;
-    margin-top: 5px;
+    margin-top: 0px;
   }
   .isActive {
     opacity: 1;
@@ -269,18 +297,16 @@ export default {
     color:rgb(255, 255, 255);
   }
   .isInTypeList {
-    box-shadow: inset 0 0 0 5px rgb(15, 80, 106);
-    border: none;
+    border: 4px solid rgb(15, 80, 106);
   }
   .isInFlavorList {
-    box-shadow: inset 0 0 0 5px rgb(225, 89, 54);
-    border: none;
+    border: 4px solid rgb(225, 89, 54);
   }
   .priceBar {
     background-color: rgb(240, 140, 105);
     width: 80%;
     border-radius: 25px;
-    height: 50px;
+    height: 13vw;
     margin: 0 auto;
     margin-top: 20px;
     /* color: #fff; */
@@ -295,6 +321,10 @@ export default {
     overflow: auto;
     padding-top: 40px;
     padding-bottom: 30px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    transition: 0.3s;
   }
   .flavor {
     background-color: rgb(255, 242, 226);
@@ -302,6 +332,10 @@ export default {
     padding-bottom: 30px;
     height: calc(100vh - 80px);
     overflow: auto;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    transition: 0.3s;
   }
   .type {
     background-color: rgb(252, 177, 74);
@@ -310,6 +344,15 @@ export default {
     padding-bottom: 30px;
     height: calc(100vh - 80px);
     overflow: auto;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    transition: 0.3s;
+  }
+  .btn_group {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
   }
   .btn {
     transition: 0.5s;

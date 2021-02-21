@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
+      <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
+    </div>
     <img src="../../assets/Icon-arrow-left.svg"
       class="arrow"
       @click="gotoPage('/signIn')">
@@ -8,9 +11,8 @@
     <div style="margin-top: 20%; font-size: 16px; color: rgb(49, 100, 126);">請輸入發送到您手機的驗證碼</div>
     <!-- 密碼輸入 -->
     <div style="margin-top: 15%; height: 80px;" @click="focusCode">
-      <el-row :gutter="20"
-        style="width: 80%; margin: 0 auto;">
-        <el-col :span="4"
+      <mu-row gutter style="width: 80%; margin: 0 auto;">
+        <mu-col :span="2"
           v-for="(code, idx) in 6"
           :key="idx + 'c'">
           <div v-if="!codeArr[idx]"
@@ -20,15 +22,15 @@
             style="color: rgb(242, 116, 73); font-weight: 700; font-size: 10vw;">
             {{ codeArr[idx] }}
           </div>
-        </el-col>
-      </el-row>
+        </mu-col>
+      </mu-row>
     </div>
-    <el-input ref="code"
+    <input ref="code"
       :maxlength="6"
       v-model="codeArr"
       type="text"
       style="position: fixed; bottom: 0; opacity: 0;"/>
-    <div class="button btnSignUp" @click="checkCode">NEXT</div>
+    <button class="button btnSignUp" @click="checkCode">NEXT</button>
     <div style="position: relative;">
       <div style="margin-top: 5%; font-size: 16px; color: rgb(49, 100, 126);">沒收到簡訊？</div>
       <div v-if="second !== 0"
@@ -55,6 +57,7 @@ export default {
   data() {
     return {
       codeArr: '',
+      loadingBar: false,
       second: 0,
     }
   },
@@ -112,6 +115,10 @@ export default {
     },
     checkCode() {
       if (this.codeArr === this.register.code) {
+        this.loadingBar = true;
+        setTimeout(() => {
+          this.loadingBar = false;
+        }, 2000);
         this.$router.push('/selectPrice')
       }
       else {
@@ -127,6 +134,26 @@ export default {
 </script>
 
 <style scoped>
+  .showLoading {
+    opacity: 0.8;
+    z-index: 100000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: black;
+    height: 100vh;
+    transition: 0.5s;
+  }
+  .center_img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+  .noShowLoading {
+    opacity: 0;
+    z-index: 0;
+  }
   .isReady {
     border-bottom: 4px solid rgb(255, 180, 75);
     height: 40px;

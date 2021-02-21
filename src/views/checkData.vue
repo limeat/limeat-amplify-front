@@ -71,7 +71,6 @@ export default {
 }
 .dataBox {
   width: 80%;
-  height: 300px;
   padding: 20px;
   margin: 0 auto;
   font-weight: 500;

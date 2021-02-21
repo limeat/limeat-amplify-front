@@ -2,57 +2,66 @@
   <div class="home">
     <!-- 首頁 Bar -->
     <div id="topBar">
-      <el-row :gutter="10">
-        <el-col :span="3">
-          <img src="../assets/Adjust.svg"/>
-        </el-col>
-        <el-col :span="18" style="line-height: 45px; position: relative;">
-          <el-input style="width: 100%;"></el-input>
+      <mu-row gutter>
+        <mu-col :span="2">
+          <div style="position: relative; width: 80%;">
+            <img src="../assets/Adjust.svg" width="90%" class="img"/>
+          </div>
+        </mu-col>
+        <mu-col :span="8" style="line-height: 40px; position: relative;">
+          <input style="width: 100%;"/>
           <i class="el-icon-search search"></i>
-        </el-col>
-        <el-col :span="3" style="line-height: 65px; position: relative;">
+        </mu-col>
+        <mu-col :span="2" style="line-height: 65px; position: relative;">
           <img src="../assets/Icon-bell.svg"/>
-        </el-col>
-      </el-row>
+        </mu-col>
+      </mu-row>
     </div>
     <!-- 選擇 -->
     <div id="selectBar">
-      <el-row>
-        <el-col :span="9">
-          <img src="../assets/flavor.svg" width="80%">
-        </el-col>
-        <el-col :span="6">
-          <img src="../assets/budget.svg" width="100%">
-        </el-col>
-        <el-col :span="9">
-          <img src="../assets/limit.svg" width="80%">
-        </el-col>
-      </el-row>
+      <mu-row>
+        <mu-col :span="4">
+          <img src="../assets/flavor.svg" width="90%">
+        </mu-col>
+        <mu-col :span="4">
+          <img src="../assets/budget.svg" width="70%">
+        </mu-col>
+        <mu-col :span="4">
+          <img src="../assets/limit.svg" width="90%">
+        </mu-col>
+      </mu-row>
     </div>
     <!-- 內容 -->
-    <div style="height: 300px; position: relative; margin-top: 20px;">
+    <div style="height: 200px; position: relative; margin-top: 20px;">
       <div class="info">
         <div style="font-size: 18px; color: rgb(225, 89, 54); font-weight: 500; text-align: right;">預算管理</div>
       </div>
     </div>
+    <!-- 內容 -->
+    <div style="height: 200px; position: relative; margin-top: 20px;">
+      <div class="info">
+        <div style="font-size: 18px; color: rgb(225, 89, 54); font-weight: 500; text-align: right;">推薦餐點</div>
+      </div>
+    </div>
+    <div style="height: 50px;"></div>
     <!-- 選單 -->
     <div class="bottom_nav">
       <div class="bottomNav">
         <!-- 第一層選單 -->
-        <el-row style="line-height: 65px;">
-          <el-col :span="6">
+        <mu-row style="line-height: 65px;">
+          <mu-col :span="3">
             <img src="../assets/Icon-home.svg">
-          </el-col>
-          <el-col :span="6">
+          </mu-col>
+          <mu-col :span="3">
             <img src="../assets/Icon-+.svg">
-          </el-col>
-          <el-col :span="6">
+          </mu-col>
+          <mu-col :span="3">
             <img src="../assets/Path.svg">
-          </el-col>
-          <el-col :span="6">
+          </mu-col>
+          <mu-col :span="3">
             <img src="../assets/Icon-person.svg">
-          </el-col>
-        </el-row>
+          </mu-col>
+        </mu-row>
         <!-- <mu-bottom-nav style="background-color: inherit; color: rgb(242, 116, 73)">
           <mu-bottom-nav-item v-for="(item, index) in firstList"
             :key="index + 'l1'"
@@ -100,11 +109,17 @@ export default {
 <style scoped>
 #topBar {
   padding: 20px 15px 0 15px;
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
 }
 #selectBar {
   width: 95%;
   margin-top: 10px;
   margin: 0 auto;
+}
+.img {
+  margin-top: 30%;
 }
 .filterBar {
   padding: 5px 10px;

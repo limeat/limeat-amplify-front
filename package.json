@@ -15,7 +15,6 @@
     "compression-webpack-plugin": "^5.0.2",
     "core-js": "^3.6.5",
     "cube-ui": "~1.12.15",
-    "element-ui": "^2.15.0",
     "muse-ui": "^3.0.2",
     "vue": "^2.6.11",
     "vue-apollo": "^3.0.0-beta.11",
