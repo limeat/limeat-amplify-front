@@ -1,4 +1,5 @@
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const cdn = {
   // 开发环境
@@ -69,6 +70,18 @@ module.exports = {
         test: /\.js$|\.html$|\.json$|\.css/,
         threshold: 10240,
         minRatio: 0.8
+      }))
+      // uglify
+      config.plugins.push(new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            drop_debugger: true,
+            drop_console: true,  //生产环境自动删除console
+          },
+          warnings: false,
+        },
+        sourceMap: false,
+        parallel: true,//使用多进程并行运行来提高构建速度。默认并发运行数：os.cpus().length - 1。
       }))
       // 开启分离js
       config.optimization = {

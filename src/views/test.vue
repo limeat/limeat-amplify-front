@@ -14,7 +14,6 @@
 <script>
 /* eslint-disable */
 import { mapGetters, mapActions } from 'vuex';
-import gql from 'graphql-tag'
 
 export default {
   name: 'Home',

@@ -1,5 +1,8 @@
-// import axios from 'axios';
 /* eslint-disable */
+import axios from 'axios'
+
+const GRAPHQL_API = 'http://localhost:4000/'
+
 const state = {
     user: {
         detail: {
@@ -70,6 +73,59 @@ const actions = {
     },
     setDefaultLikes({ commit, state }, payload) {
         commit('RECEIVE_USER_LIKES', payload);
+    },
+    createAccount({ commit, state }, payload) {
+        const phone = payload.phone;
+        const firstName = payload.firstName;
+        const lastName = payload.lastName;
+        const birthday = payload.birth;
+        return axios({
+            method: 'POST',
+            url: GRAPHQL_API,
+            data: {
+                query: `
+                    mutation {
+                        createAccount(
+                            payload: {
+                                cellphone: "${phone}",
+                                firstName: "${firstName}",
+                                lastName: "${lastName}",
+                                birthday: ${birthday}
+                            }
+                        ){
+                            status,
+                            message
+                        }
+                    }
+                `
+            }
+        })
+        .then((res) => {
+            return res;
+        })
+    },
+    // 取得帳號資訊
+    getAccountInfo({ commit, state }, payload) {
+        const token = payload.token;
+        return axios({
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            url: GRAPHQL_API,
+            data: {
+                query: `
+                    {
+                        getAccount {
+                            message
+                        }
+                    }
+                `
+            }
+        })
+        .then((res) => {
+            return res;
+        })
     }
 }
 

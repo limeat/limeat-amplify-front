@@ -22,8 +22,9 @@
 
 <script>
 /* eslint-disable */
-import { mapGetters, mapActions } from 'vuex';
-import gql from 'graphql-tag'
+import { mapGetters, mapActions, createNamespacedHelpers } from 'vuex';
+
+const register = createNamespacedHelpers('register');
 
 export default {
   name: 'Home',
@@ -40,7 +41,9 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
+    ...register.mapActions({
+      getAccountInfo: 'getAccountInfo',
+      createAccount: 'createAccount'
     }),
     goToPage(route) {
       this.loadingBar = true;

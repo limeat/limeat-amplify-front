@@ -5,11 +5,7 @@ import Vue from 'vue'
 // Style is always required.
 import {
   /* eslint-disable no-unused-vars */
-  Button,
-  DatePicker,
-  Slide
+  DatePicker
 } from 'cube-ui'
 
-Vue.use(Button)
 Vue.use(DatePicker)
-Vue.use(Slide)

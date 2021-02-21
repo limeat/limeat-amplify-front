@@ -46,18 +46,17 @@
 
 <script>
 /* eslint-disable */
-import gql from 'graphql-tag'
 import { mapGetters, mapActions, createNamespacedHelpers } from 'vuex';
 const register = createNamespacedHelpers('register');
 
 
-const loginMutation = gql`
-  mutation login($email: String!, $password: String!) {
-    login(payload: { email: $email, password: $password }) {
-      status, message, token
-    }
-  }
-`;
+// const loginMutation = gql`
+//   mutation login($email: String!, $password: String!) {
+//     login(payload: { email: $email, password: $password }) {
+//       status, message, token
+//     }
+//   }
+// `;
 
 
 export default {

@@ -40,7 +40,6 @@
 <script>
 /* eslint-disable */
 import { mapGetters, mapActions, createNamespacedHelpers } from 'vuex';
-import gql from 'graphql-tag'
 
 const register = createNamespacedHelpers('register');
 
