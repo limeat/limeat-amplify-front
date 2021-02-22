@@ -1,7 +1,7 @@
 /* eslint-disable */
 import axios from 'axios'
 
-const GRAPHQL_API = 'http://3.139.153.191:4000/'
+const GRAPHQL_API = 'https://limeat.io:4001/'
 
 const state = {
     user: {
@@ -86,12 +86,12 @@ const actions = {
                 `
             }
         })
-            .then((res) => {
-                return res;
-            })
-            .catch((err) => {
-                return err;
-            })
+        .then((res) => {
+            return res;
+        })
+        .catch((err) => {
+            return err;
+        })
     },
     getVerCode({ commit, state }, payload) {
         const phone = payload.phone;
