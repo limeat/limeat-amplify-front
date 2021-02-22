@@ -1,73 +1,75 @@
 <template>
   <div class="home">
-    <!-- 首頁 Bar -->
-    <div id="topBar">
-      <mu-row gutter>
-        <mu-col :span="2">
-          <div style="position: relative; width: 80%;">
-            <img src="../assets/Adjust.svg" width="90%" class="img"/>
-          </div>
-        </mu-col>
-        <mu-col :span="8" style="line-height: 40px; position: relative;">
-          <input style="width: 100%;"/>
-          <i class="el-icon-search search"></i>
-        </mu-col>
-        <mu-col :span="2" style="line-height: 65px; position: relative;">
-          <img src="../assets/Icon-bell.svg"/>
-        </mu-col>
-      </mu-row>
-    </div>
-    <!-- 選擇 -->
-    <div id="selectBar">
-      <mu-row>
-        <mu-col :span="4">
-          <img src="../assets/flavor.svg" width="90%">
-        </mu-col>
-        <mu-col :span="4">
-          <img src="../assets/budget.svg" width="70%">
-        </mu-col>
-        <mu-col :span="4">
-          <img src="../assets/limit.svg" width="90%">
-        </mu-col>
-      </mu-row>
-    </div>
-    <!-- 內容 -->
-    <div style="height: 200px; position: relative; margin-top: 20px;">
-      <div class="info">
-        <div style="font-size: 18px; color: rgb(225, 89, 54); font-weight: 500; text-align: right;">預算管理</div>
-      </div>
-    </div>
-    <!-- 內容 -->
-    <div style="height: 200px; position: relative; margin-top: 20px;">
-      <div class="info">
-        <div style="font-size: 18px; color: rgb(225, 89, 54); font-weight: 500; text-align: right;">推薦餐點</div>
-      </div>
-    </div>
-    <div style="height: 50px;"></div>
-    <!-- 選單 -->
-    <div class="bottom_nav">
-      <div class="bottomNav">
-        <!-- 第一層選單 -->
-        <mu-row style="line-height: 65px;">
-          <mu-col :span="3">
-            <img src="../assets/Icon-home.svg">
+    <div style="min-height: 700px;">
+      <!-- 首頁 Bar -->
+      <div id="topBar">
+        <mu-row gutter>
+          <mu-col :span="2">
+            <div style="position: relative; width: 80%;">
+              <img src="../assets/Adjust.svg" width="90%" class="img"/>
+            </div>
           </mu-col>
-          <mu-col :span="3">
-            <img src="../assets/Icon-+.svg">
+          <mu-col :span="8" style="line-height: 40px; position: relative;">
+            <input style="width: 100%;"/>
+            <i class="el-icon-search search"></i>
           </mu-col>
-          <mu-col :span="3">
-            <img src="../assets/Path.svg">
-          </mu-col>
-          <mu-col :span="3">
-            <img src="../assets/Icon-person.svg">
+          <mu-col :span="2" style="line-height: 65px; position: relative;">
+            <img src="../assets/Icon-bell.svg"/>
           </mu-col>
         </mu-row>
-        <!-- <mu-bottom-nav style="background-color: inherit; color: rgb(242, 116, 73)">
-          <mu-bottom-nav-item v-for="(item, index) in firstList"
-            :key="index + 'l1'"
-            :value="item.value" :icon="item.icon">
-          </mu-bottom-nav-item>
-        </mu-bottom-nav> -->
+      </div>
+      <!-- 選擇 -->
+      <div id="selectBar">
+        <mu-row>
+          <mu-col :span="4">
+            <img src="../assets/flavor.svg" width="90%">
+          </mu-col>
+          <mu-col :span="4">
+            <img src="../assets/budget.svg" width="70%">
+          </mu-col>
+          <mu-col :span="4">
+            <img src="../assets/limit.svg" width="90%">
+          </mu-col>
+        </mu-row>
+      </div>
+      <!-- 內容 -->
+      <div style="height: 200px; position: relative; margin-top: 20px;">
+        <div class="info">
+          <div style="font-size: 18px; color: rgb(225, 89, 54); font-weight: 500; text-align: right;">預算管理</div>
+        </div>
+      </div>
+      <!-- 內容 -->
+      <div style="height: 200px; position: relative; margin-top: 20px;">
+        <div class="info">
+          <div style="font-size: 18px; color: rgb(225, 89, 54); font-weight: 500; text-align: right;">推薦餐點</div>
+        </div>
+      </div>
+      <div style="height: 50px;"></div>
+      <!-- 選單 -->
+      <div class="bottom_nav">
+        <div class="bottomNav">
+          <!-- 第一層選單 -->
+          <mu-row style="line-height: 65px;">
+            <mu-col :span="3">
+              <img src="../assets/Icon-home.svg">
+            </mu-col>
+            <mu-col :span="3">
+              <img src="../assets/Icon-+.svg">
+            </mu-col>
+            <mu-col :span="3">
+              <img src="../assets/Path.svg">
+            </mu-col>
+            <mu-col :span="3">
+              <img src="../assets/Icon-person.svg">
+            </mu-col>
+          </mu-row>
+          <!-- <mu-bottom-nav style="background-color: inherit; color: rgb(242, 116, 73)">
+            <mu-bottom-nav-item v-for="(item, index) in firstList"
+              :key="index + 'l1'"
+              :value="item.value" :icon="item.icon">
+            </mu-bottom-nav-item>
+          </mu-bottom-nav> -->
+        </div>
       </div>
     </div>
   </div>

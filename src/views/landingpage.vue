@@ -1,22 +1,23 @@
 <template>
   <div class="home">
-    <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
-      <img src="../assets/dergedcbh.gif" width="50" class="center_img">
+    <div style="min-height: 600px;">
+      <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
+        <img src="../assets/dergedcbh.gif" width="50" class="center_img">
+      </div>
+      <!-- 間隔 -->
+      <div style="height: 80px;"></div>
+      <!-- logo -->
+      <div style="position: relative; width: 100%; height: 260px;">
+        <div class="position logo"></div>
+        <div class="position logo1"></div>
+        <img src="../assets/LIMeat.svg" width="168" class="position logo_img">
+      </div>
+      <!-- 登入按鈕 -->
+      <div>
+        <button class="button btnSignIn" @click="goToPage('/signIn')" style="margin-top: 40px;">SIGN IN</button>
+        <button class="button btnSignUp" @click="goToPage('/signUp')" style="margin-top: 25px;">SIGN UP</button>
+      </div>
     </div>
-    <!-- 間隔 -->
-    <div style="height: 80px;"></div>
-    <!-- logo -->
-    <div style="position: relative; width: 100%; height: 260px;">
-      <div class="position logo"></div>
-      <div class="position logo1"></div>
-      <img src="../assets/LIMeat.svg" width="168" class="position logo_img">
-    </div>
-    <!-- 登入按鈕 -->
-    <div>
-      <button class="button btnSignIn" @click="goToPage('/signIn')" style="margin-top: 40px;">SIGN IN</button>
-      <button class="button btnSignUp" @click="goToPage('/signUp')" style="margin-top: 25px;">SIGN UP</button>
-    </div>
-    <div style="height: 80px;"></div>
   </div>
 </template>
 
@@ -59,7 +60,8 @@ export default {
 <style scoped>
   .home {
     height: 100vh;
-    overflow: auto;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
   }
   .position {
     position: absolute;

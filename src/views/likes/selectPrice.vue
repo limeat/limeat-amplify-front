@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <div style="min-height: 850px;"></div>
     <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
       <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
     </div>
@@ -329,6 +330,7 @@ export default {
   .home {
     background-color: rgb(15, 80, 106);
     height: 100vh;
+    overflow: auto;
   }
   .showLoading {
     opacity: 0.8;
