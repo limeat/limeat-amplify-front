@@ -96,8 +96,19 @@ export default {
         this.loadingBar = true;
         setTimeout(() => { this.loadingBar = false }, 2000);
         // 取得驗證碼
-        this.getVerCode(postData).then(() => {
-          this.$router.push('/phoneVer');
+        this.getVerCode(postData).then((res) => {
+          if (res.data.data) {
+            const statusCode = res.data.data.sendSmsVerificationCode.status;
+            if (statusCode === 200) {
+              this.$router.push('/phoneVer');
+            }
+            else {
+              alert('登入失敗 ' + statusCode);
+            }
+          }
+          else {
+            alert('登入失敗');
+          }
         })
       }
     },
@@ -144,7 +155,7 @@ export default {
 .arrow {
   position: absolute;
   top: 30px;
-  left: 40px;
+  left: 35px;
 }
 .color-grey {
   color:rgb(112, 112 ,112, 0.8);

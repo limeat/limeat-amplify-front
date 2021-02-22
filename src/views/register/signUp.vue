@@ -185,7 +185,7 @@ export default {
 .arrow {
   position: absolute;
   top: 30px;
-  left: 40px;
+  left: 35px;
 }
 .seletBar {
   position: absolute;

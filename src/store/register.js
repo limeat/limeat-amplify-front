@@ -118,6 +118,9 @@ const actions = {
             commit('RECEIVE_USER_PHONE_DATE', { phone: phone, code: '', status: status });
             return res;
         })
+        .catch((err) => {
+            return err;
+        })
     },
     createAccount({ commit, state }, payload) {
         const phone = payload.phone;
@@ -148,6 +151,45 @@ const actions = {
         .then((res) => {
             return res;
         })
+        .catch((err) => {
+            return err;
+        })
+    },
+    // 更新帳號資訊
+    updateAccountInfo({ commit, state }, payload) {
+        const token = payload.token;
+        const perMealBudgetRange = `[${payload.perMealBudgetRange.toString()}]`;
+        const preferredCuisines = `[${payload.preferredCuisines.toString()}]`;
+        const preferredFoodTypes = `[${payload.preferredFoodTypes.toString()}]`;
+        return axios({
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            url: GRAPHQL_API,
+            data: {
+                query: `
+                    mutation {
+                        updateAccount(
+                            payload: {
+                                perMealBudgetRange: ${perMealBudgetRange},
+                                preferredCuisines: ${preferredCuisines},
+                                preferredFoodTypes: ${preferredFoodTypes}
+                            }
+                        ){
+                            status,
+                            message
+                        }
+                    }
+                `
+            }
+        })
+        .then((res) => {
+            return res;
+        })
+        .catch((err) => {
+            return err;
+        })
     },
     // 取得帳號資訊
     getAccountInfo({ commit, state }, payload) {
@@ -162,7 +204,14 @@ const actions = {
                 query: `
                     {
                         getAccount {
-                            message
+                            message,
+                            status,
+                            account {
+                                cellphone,
+                                perMealBudgetRange,
+                                preferredCuisines,
+                                preferredFoodTypes
+                            }
                         }
                     }
                 `

@@ -113,6 +113,7 @@ export default {
       showLogo: false,
       isActive: false,
       nowSelect: 2,
+      userToken: '',
       page: 0,
       count: 0,
       loadingBar: false,
@@ -120,20 +121,20 @@ export default {
       flavorSelect: [],
       typeSelect: [],
       flavors: [
-        { type: 'taiwanese', label: '台式料理' },
-        { type: 'korean', label: '日韓料理' },
-        { type: 'american', label: '美式料理' },
-        { type: 'taliand', label: '泰越料理' },
-        { type: 'italian', label: '義法料理' },
-        { type: 'vergin', label: '素食料理' }
+        { type: 'TAIWANESE', label: '台式料理' },
+        { type: 'JAPANESE_AND_KOREAN', label: '日韓料理' },
+        { type: 'AMERICAN', label: '美式料理' },
+        { type: 'THAI_AND_VIETNAM', label: '泰越料理' },
+        { type: 'ITALIAN_AND_FRENCH', label: '義法料理' },
+        { type: 'VEGETARIAN', label: '素食料理' }
       ],
       types: [
-        { type: 'rice', label: '飯食類' },
-        { type: 'noodle', label: '麵食類' },
-        { type: 'soup', label: '粥湯類' },
-        { type: 'dessert', label: '麵包甜點' },
-        { type: 'drink', label: '手搖飲料' },
-        { type: 'veg', label: '蔬果輕食' }
+        { type: 'RICE', label: '飯食類' },
+        { type: 'NOODLE_AND_FLOUR', label: '麵食類' },
+        { type: 'PORRIDGE_AND_SOUP', label: '粥湯類' },
+        { type: 'BREAD_AND_DESSERT', label: '麵包甜點' },
+        { type: 'HAND_SHAKE_BEVERAGE', label: '手搖飲料' },
+        { type: 'LIGHT_MEAL', label: '蔬果輕食' }
       ],
       prices: [
         '100元以內',
@@ -173,8 +174,47 @@ export default {
       this.$router.push('/');
     }
     else {
+      this.userToken = token;
       this.getAccountInfo({ token }).then((res) => {
-        console.log(res);
+        if (res.data.data) {
+          const statusCode = res.data.data.getAccount.status;
+          if (statusCode === 200) {
+            const accountDetail = res.data.data.getAccount.account;
+            // 確認使用者資訊
+            if (accountDetail.preferredCuisines) {
+              this.flavorSelect = accountDetail.preferredCuisines;
+            }
+            if (accountDetail.preferredFoodTypes) {
+              this.typeSelect = accountDetail.preferredFoodTypes;
+            }
+            if (accountDetail.perMealBudgetRange) {
+              if (accountDetail.perMealBudgetRange[0] === 0) {
+                this.selectedPrice = '100元以內';
+              }
+              if (accountDetail.perMealBudgetRange[0] === 100) {
+                this.selectedPrice = '100-150元';
+              }
+              if (accountDetail.perMealBudgetRange[0] === 150) {
+                this.selectedPrice = '150-200元';
+              }
+              if (accountDetail.perMealBudgetRange[0] === 200) {
+                this.selectedPrice = '200-300元';
+              }
+              if (accountDetail.perMealBudgetRange[0] === 300) {
+                this.selectedPrice = '300元以上';
+              }
+            }
+          }
+          else {
+            this.$router.push('/');
+          }
+        }
+        else {
+          this.$router.push('/');
+        }
+      })
+      .catch(() => {
+        this.$router.push('/');
       })
     }
   },
@@ -189,6 +229,7 @@ export default {
   methods: {
     ...register.mapActions({
       setDefaultLikes: 'setDefaultLikes',
+      updateAccountInfo: 'updateAccountInfo',
       getAccountInfo: 'getAccountInfo'
     }),
     load () {
@@ -204,7 +245,49 @@ export default {
         types: this.typeSelect,
         price: this.selectedPrice
       });
-      this.$router.push(route);
+      let perMealBudgetRange = [];
+      if (this.selectedPrice === '100 元以內') {
+        perMealBudgetRange = [0, 100];
+      }
+      else if (this.selectedPrice === '100-150元') {
+        perMealBudgetRange = [100, 150];
+      }
+      else if (this.selectedPrice === '150-200元') {
+        perMealBudgetRange = [150, 200];
+      }
+      else if (this.selectedPrice === '200-300元') {
+        perMealBudgetRange = [200, 300];
+      }
+      else {
+        perMealBudgetRange = [300];
+      }
+      const postData = {
+        token: this.userToken,
+        perMealBudgetRange: perMealBudgetRange,
+        preferredCuisines: this.flavorSelect,
+        preferredFoodTypes: this.typeSelect,
+        // frequent_districts: 'TAIPEI_DAAN',
+        // hobbies: 'SPORT',
+        // socialEvents: 'TRAVELING',
+        // transportations: 'MRT'
+      };
+      this.updateAccountInfo(postData).then((res) => {
+        if (res.data.data) {
+          const statusCode = res.data.data.updateAccount.status;
+          if (statusCode === 200) {
+            this.$router.push(route);
+          }
+          else {
+            alert('登入發生錯誤 ' + statusCode);
+          }
+        }
+        else {
+          alert('登入發生錯誤');
+        }
+      })
+      .catch(() => {
+        alert('登入發生錯誤');
+      })
     },
     selectPrice(price) {
       if (this.selectedPrice === price) {
@@ -215,11 +298,9 @@ export default {
       }
     },
     getFlavorSelected() {
-      console.log(this.flavorSelect);
       this.page = 1;
     },
     getTypeSelected() {
-      console.log(this.typeSelect);
       this.page = 2;
     },
     getType(type) {
