@@ -3,102 +3,101 @@
     <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
       <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
     </div>
-    <!-- 內建高度 -->
-    <div style="min-height: 850px;">
-      <!-- 第一層 -->
-      <div style="height: 650px position: relative;">
-        <!-- 口味選擇 -->
-        <div class="flavor" key="flavor" v-if="page === 0">
-          <mu-row>
-            <mu-col :span="3" style="text-align: right;">
-              <img style="margin-top: 10px;" src="../../assets/Icon-chart-line.svg"/>
-            </mu-col>
-            <mu-col :span="6" style="text-align: center;">
-              <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
-              <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">口味喜好</div>
-            </mu-col>
-            <mu-col :span="3" style="text-align: left;">
-              <img src="../../assets/Icon-message-circle.svg"/>
-            </mu-col>
-          </mu-row>
-          <div style="width: 80%; margin: 0 auto;">
-            <div v-for="(flavor, idx) in flavors" :key="idx + 'f'" style="width: 50%; padding: 10px; display: inline-block;">
-              <div :class="{ isInFlavorList: flavorSelect.indexOf(flavor.type) !== -1 }"
-                class="circle"
-                @click="getFlavor(flavor.type)">
-              </div>
-              <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
-            </div>
+    <div style="min-height: 630pt;"></div>
+    <!-- 口味 -->
+    <div class="flavor" key="flavor" :class="{ isShow: page === 0 }">
+      <!-- 標題 -->
+      <mu-row>
+        <mu-col :span="3" style="text-align: right;">
+          <img style="margin-top: 10px;" src="../../assets/Icon-chart-line.svg"/>
+        </mu-col>
+        <mu-col :span="6" style="text-align: center;">
+          <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
+          <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">口味喜好</div>
+        </mu-col>
+        <mu-col :span="3" style="text-align: left;">
+          <img src="../../assets/Icon-message-circle.svg"/>
+        </mu-col>
+      </mu-row>
+      <!-- 選項 -->
+      <div style="width: 80%; margin: 0 auto;">
+        <div v-for="(flavor, idx) in flavors" :key="idx + 'f'" style="width: 50%; padding: 10px; display: inline-block;">
+          <div :class="{ isInFlavorList: flavorSelect.indexOf(flavor.type) !== -1 }"
+            class="circle"
+            @click="getFlavor(flavor.type)">
           </div>
-          <button :class="{ notActive: flavorSelect.length < 1, isActive:  flavorSelect.length >= 1 }"
-            class="button btnSignIn"
-            style="margin-top: 25px;"
-            @click="getFlavorSelected">
-            NEXT
-          </button>
-        </div>
-        <!-- 類別選擇 -->
-        <div class="type" key="type" v-if="page === 1">
-          <mu-row>
-            <mu-col :span="3" style="text-align: right;">
-              <img style="margin-top: 10px;" src="../../assets/Icon-chart-line-orange.svg"/>
-            </mu-col>
-            <mu-col :span="6" style="text-align: center;">
-              <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
-              <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">類別喜好</div>
-            </mu-col>
-            <mu-col :span="3" style="text-align: left;">
-              <img src="../../assets/Icon-message-circle-white.svg"/>
-            </mu-col>
-          </mu-row>
-          <!-- 選項 -->
-          <div style="width: 80%; margin: 0 auto;">
-            <div v-for="(type, idx) in types" :key="idx + 't'" style="width: 50%; padding: 10px; display: inline-block;">
-              <div :class="{ isInTypeList: typeSelect.indexOf(type.type) !== -1 }"
-                class="circle1"
-                @click="getType(type.type)">
-              </div>
-              <div style="font-size: 15px; margin-top: 5px;">{{ type.label }}</div>
-            </div>
-          </div>
-          <button :class="{ notActive: typeSelect.length < 1, isActive:  typeSelect.length >= 1 }"
-            class="button btnType"
-            style="margin-top: 25px;"
-            @click="getTypeSelected">
-            NEXT
-          </button>
-        </div>
-        <!-- 價格區間 -->
-        <div class="price" key="price" v-if="page === 2">
-          <div style="font-size: 28px; color: #fff;">價格區間</div>
-          <div style="font-size: 15px; color: #fff;">選擇您一餐含運費的預算價錢</div>
-          <div v-for="(price, idx) in prices"
-            class="priceBar"
-            :class="{ isSelect: selectedPrice === price, notSelect: (selectedPrice !== price || selectedPrice !== '') }"
-            @click="selectPrice(price)"
-            :key="idx + 'p'">
-            {{ price }}
-          </div>
-          <button :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
-            class="button btnStart"
-            style="margin-top: 25px;"
-            @click="goToPage('/main')">
-            開始使用 LIMEAT
-          </button>
+          <div style="font-size: 15px; margin-top: 5px;">{{ flavor.label }}</div>
         </div>
       </div>
-      <div class="btn_group">
-        <mu-row>
-          <mu-col :span="4" v-for="(btn, index) in buttons" :key="index + 'b'">
-            <div :class="{ isBoxShadow: page !== index }"
-              class="belowBtn"
-              :style="{ backgroundColor: btn.bgColor, color: btn.color }"
-              @click="page = index">
-              {{ btn.label }}
-            </div>
-          </mu-col>
-        </mu-row>
+      <button :class="{ notActive: flavorSelect.length < 1, isActive:  flavorSelect.length >= 1 }"
+        class="button btnSignIn"
+        style="margin-top: 25px;"
+        @click="getFlavorSelected">
+        NEXT
+      </button>
+    </div>
+    <!-- 類型 -->
+    <div class="type" key="type" :class="{ isShow: page === 1, noShow: page === 0 }">
+      <mu-row>
+        <mu-col :span="3" style="text-align: right;">
+          <img style="margin-top: 10px;" src="../../assets/Icon-chart-line-orange.svg"/>
+        </mu-col>
+        <mu-col :span="6" style="text-align: center;">
+          <div style="font-size: 5vw; color: rgb(49, 100, 126); font-weight: 500;">讓我們知道您的</div>
+          <div style="font-size: 9vw; color: rgb(49, 100, 126); font-weight: 500; margin-top: -5px;">類別喜好</div>
+        </mu-col>
+        <mu-col :span="3" style="text-align: left;">
+          <img src="../../assets/Icon-message-circle-white.svg"/>
+        </mu-col>
+      </mu-row>
+      <!-- 選項 -->
+      <div style="width: 80%; margin: 0 auto;">
+        <div v-for="(type, idx) in types" :key="idx + 't'" style="width: 50%; padding: 10px; display: inline-block;">
+          <div :class="{ isInTypeList: typeSelect.indexOf(type.type) !== -1 }"
+            class="circle1"
+            @click="getType(type.type)">
+          </div>
+          <div style="font-size: 15px; margin-top: 5px;">{{ type.label }}</div>
+        </div>
       </div>
+      <button :class="{ notActive: typeSelect.length < 1, isActive:  typeSelect.length >= 1 }"
+        class="button btnType"
+        style="margin-top: 25px;"
+        @click="getTypeSelected">
+        NEXT
+      </button>
+    </div>
+    <!-- 價格區間 -->
+    <div class="price" key="price" :class="{ isShow: page === 2, noShow: page !== 2 }">
+      <div style="font-size: 28px; color: #fff;">價格區間</div>
+      <div style="font-size: 15px; color: #fff;">選擇您一餐含運費的預算價錢</div>
+      <br/>
+      <div v-for="(price, idx) in prices"
+        class="priceBar"
+        :class="{ isSelect: selectedPrice === price, notSelect: (selectedPrice !== price || selectedPrice !== '') }"
+        @click="selectPrice(price)"
+        :key="idx + 'p'">
+        {{ price }}
+      </div>
+      <button :class="{ notActive: selectedPrice === '', isActive: selectedPrice !== '' }"
+        class="button btnStart"
+        style="margin-top: 25px;"
+        @click="goToPage('/main')">
+        開始使用 LIMEAT
+      </button>
+    </div>
+    <!-- 按鈕 -->
+    <div class="btn_group">
+      <mu-row>
+        <mu-col :span="4" v-for="(btn, index) in buttons" :key="index + 'b'">
+          <div :class="{ isBoxShadow: page !== index }"
+            class="belowBtn"
+            :style="{ backgroundColor: btn.bgColor, color: btn.color }"
+            @click="page = index">
+            {{ btn.label }}
+          </div>
+        </mu-col>
+      </mu-row>
     </div>
   </div>
 </template>
@@ -211,16 +210,15 @@ export default {
             }
           }
           else {
-            this.$router.push('/');
+            // this.$router.push('/');
           }
         }
         else {
-          this.$router.push('/');
+          // this.$router.push('/');
         }
       })
-      .catch((e) => {
-        // console.log(e);
-        this.$router.push('/');
+      .catch(() => {
+        // this.$router.push('/');
       })
     }
   },
@@ -228,9 +226,6 @@ export default {
     ...register.mapGetters({
       register: 'register'
     }),
-    Y() {
-      return `transform: translateY(${ -70 * this.nowSelect }px)`
-    }
   },
   methods: {
     ...register.mapActions({
@@ -238,8 +233,28 @@ export default {
       updateAccountInfo: 'updateAccountInfo',
       getAccountInfo: 'getAccountInfo'
     }),
-    load () {
-      this.count += 2
+    getFlavorSelected() {
+      this.page = 1;
+    },
+    getTypeSelected() {
+      this.page = 2;
+    },
+    getType(type) {
+      const position = this.typeSelect.indexOf(type);
+      if (position === -1) {
+        this.typeSelect.push(type);
+      }
+      else {
+        this.typeSelect.splice(position, 1);
+      }
+    },
+    selectPrice(price) {
+      if (this.selectedPrice === price) {
+        this.selectedPrice = '';
+      }
+      else {
+        this.selectedPrice = price;
+      }
     },
     goToPage(route) {
       this.loadingBar = true;
@@ -272,10 +287,6 @@ export default {
         perMealBudgetRange: perMealBudgetRange,
         preferredCuisines: this.flavorSelect,
         preferredFoodTypes: this.typeSelect,
-        // frequent_districts: 'TAIPEI_DAAN',
-        // hobbies: 'SPORT',
-        // socialEvents: 'TRAVELING',
-        // transportations: 'MRT'
       };
       this.updateAccountInfo(postData).then((res) => {
         if (res.data.data) {
@@ -295,29 +306,6 @@ export default {
         alert('登入發生錯誤');
       })
     },
-    selectPrice(price) {
-      if (this.selectedPrice === price) {
-        this.selectedPrice = '';
-      }
-      else {
-        this.selectedPrice = price;
-      }
-    },
-    getFlavorSelected() {
-      this.page = 1;
-    },
-    getTypeSelected() {
-      this.page = 2;
-    },
-    getType(type) {
-      const position = this.typeSelect.indexOf(type);
-      if (position === -1) {
-        this.typeSelect.push(type);
-      }
-      else {
-        this.typeSelect.splice(position, 1);
-      }
-    },
     getFlavor(flavor) {
       const position = this.flavorSelect.indexOf(flavor);
       if (position === -1) {
@@ -335,7 +323,10 @@ export default {
   .home {
     background-color: rgb(15, 80, 106);
     height: 100vh;
-    overflow: auto;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
   }
   .showLoading {
     opacity: 0.8;
@@ -357,11 +348,77 @@ export default {
     opacity: 0;
     z-index: 0;
   }
+  .flavor {
+    background-color: rgb(255, 242, 226);
+    height: 520pt;
+    position: absolute;
+    top: 0;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    transition: 0.3s;
+    width: 100%;
+  }
+  .type {
+    background-color: rgb(252, 177, 74);
+    height: 520pt;
+    position: absolute;
+    top: 0;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    transition: 0.3s;
+    width: 100%;
+  }
+  .price {
+    background-color: rgb(237, 113, 70);
+    height: 520pt;
+    position: absolute;
+    top: 0;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    transition: 0.3s;
+    width: 100%;
+  }
+  .priceBar {
+    background-color: rgb(240, 140, 105);
+    width: 80%;
+    border-radius: 25px;
+    height: 13vw;
+    margin: 0 auto;
+    margin-top: 25px;
+    /* color: #fff; */
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 50px;
+    box-sizing: content-box;
+  }
+  .notSelect {
+    color:rgb(255, 255, 255, 0.5);
+  }
+  .isSelect {
+    box-shadow: 0 0 0 3px white;
+    color:rgb(255, 255, 255);
+  }
+  .btn_group {
+    position: absolute;
+    width: 100%;
+    top: 520pt;
+  }
+  .btn {
+    transition: 0.5s;
+  }
   .isShow {
     left: 0;
   }
   .noShow {
     left: 100%;
+  }
+  .belowBtn {
+    width: 100%;
+    /* border: 1px solid #fff; */
+    height: 60px;
+    font-size: 18px;
+    line-height: 60px;
+    border-radius: 0 0 15px 15px;
   }
   .circle {
     width: 90px;
@@ -381,88 +438,17 @@ export default {
     margin: 0 auto;
     margin-top: 0px;
   }
+  .isInFlavorList {
+    border: 5px solid rgb(225, 89, 54);
+  }
+  .isInTypeList {
+    border: 5px solid rgb(15, 80, 106);
+  }
   .isActive {
     opacity: 1;
   }
   .notActive {
     opacity: 0;
-  }
-  .notSelect {
-    color:rgb(255, 255, 255, 0.5);
-  }
-  .isSelect {
-    box-shadow: 0 0 0 3px white;
-    color:rgb(255, 255, 255);
-  }
-  .isInTypeList {
-    border: 4px solid rgb(15, 80, 106);
-  }
-  .isInFlavorList {
-    border: 4px solid rgb(225, 89, 54);
-  }
-  .priceBar {
-    background-color: rgb(240, 140, 105);
-    width: 80%;
-    border-radius: 25px;
-    height: 13vw;
-    margin: 0 auto;
-    margin-top: 25px;
-    /* color: #fff; */
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 50px;
-    box-sizing: content-box;
-  }
-  .price {
-    background-color: rgb(237, 113, 70);
-    height: 650px;
-    /* height: 600px; */
-    width: 100%;
-    padding-top: 40px;
-    padding-bottom: 30px;
-    transition: 0.3s;
-  }
-  .flavor {
-    background-color: rgb(255, 242, 226);
-    height: 650px;
-    /* height: 600px; */
-    width: 100%;
-    padding-top: 40px;
-    padding-bottom: 30px;
-    transition: 0.3s;
-    /*
-    padding-bottom: 30px;
-    height: calc(100vh - 80px);
-    overflow: auto;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    transition: 0.3s; */
-  }
-  .type {
-    background-color: rgb(252, 177, 74);
-    height: 650px;
-    /* height: 600px; */
-    width: 100%;
-    padding-top: 40px;
-    padding-bottom: 30px;
-    transition: 0.3s;
-  }
-  .btn_group {
-    /* position: absolute; */
-    width: 100%;
-    bottom: 20px;
-  }
-  .btn {
-    transition: 0.5s;
-  }
-  .belowBtn {
-    width: 100%;
-    /* border: 1px solid #fff; */
-    height: 60px;
-    font-size: 18px;
-    line-height: 60px;
-    border-radius: 0 0 15px 15px;
   }
   .isBoxShadow {
     -webkit-box-shadow: inset 0 3px 10px -5px #555;

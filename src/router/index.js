@@ -57,7 +57,7 @@ const routes = [
     path: '/selectPrice',
     name: 'selectPrice',
     component: resolve => {
-      require(['@/views/likes/selectText.vue'], resolve)
+      require(['@/views/likes/testHeight.vue'], resolve)
     }
   }
 ]
