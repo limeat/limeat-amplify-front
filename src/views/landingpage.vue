@@ -18,8 +18,6 @@
         <button class="button btnSignUp" @click="goToPage('/signUp')" style="margin-top: 25px;">SIGN UP</button>
       </div>
     </div>
-    <!-- 預留空間 -->
-    <!-- <div style="height: 90px;"></div> -->
   </div>
 </template>
 
