@@ -330,7 +330,8 @@ export default {
   .home {
     background-color: rgb(15, 80, 106);
     height: 100vh;
-    overflow: auto;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
   }
   .showLoading {
     opacity: 0.8;

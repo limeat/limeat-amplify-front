@@ -1,39 +1,41 @@
 <template>
   <div class="home">
-    <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
-      <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
-    </div>
-    <img src="../../assets/Icon-arrow-left.svg" class="arrow" @click="gotoPage('/')">
-    <div style="height: 28px;"></div>
-    <div style="font-size: 28px; color: rgb(112,112,112)">註冊</div>
-    <div style="margin: 40px auto; width: 80%; margin-bottom: 30px;">
-      <!-- 姓名 -->
-      <mu-row gutter>
-        <mu-col :span="5">
-          <input style="width: 100%;" v-model="firstName" placeholder="姓"/>
-        </mu-col>
-        <mu-col :span="7">
-          <input style="width: 100%;" v-model="lastName" placeholder="名"/>
-        </mu-col>
-      </mu-row>
-      <!-- 生日 -->
-      <div class="birthSelect" @click="showDatePicker">
-        {{ birth ? birth : 'YYYYMMDD' }}
-        <div class="seletBar"></div>
+    <div style="min-height: 400pt;">
+      <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
+        <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
       </div>
-      <!-- 手機號碼 -->
-      <div style="margin-top: 25px;">
-        <input style="width: 100%;"
-          v-model="phone"
-          placeholder="手機號碼，例：+886912345678"/>
+      <img src="../../assets/Icon-arrow-left.svg" class="arrow" @click="gotoPage('/')">
+      <div style="height: 28px;"></div>
+      <div style="font-size: 28px; color: rgb(112,112,112)">註冊</div>
+      <div style="margin: 40px auto; width: 80%; margin-bottom: 30px;">
+        <!-- 姓名 -->
+        <mu-row gutter>
+          <mu-col :span="5">
+            <input style="width: 100%;" v-model="firstName" placeholder="姓"/>
+          </mu-col>
+          <mu-col :span="7">
+            <input style="width: 100%;" v-model="lastName" placeholder="名"/>
+          </mu-col>
+        </mu-row>
+        <!-- 生日 -->
+        <div class="birthSelect" @click="showDatePicker">
+          {{ birth ? birth : 'YYYYMMDD' }}
+          <div class="seletBar"></div>
+        </div>
+        <!-- 手機號碼 -->
+        <div style="margin-top: 25px;">
+          <input style="width: 100%;"
+            v-model="phone"
+            placeholder="手機號碼，例：+886912345678"/>
+        </div>
       </div>
-    </div>
-    <!-- 按鈕 -->
-    <div class="button btnSignUp" @click="checkPhone">取得手機驗證碼</div>
-    <div v-if="notCompleted" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">請確認資料填寫完成</div>
-    <div v-if="invalidPhone" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">手機號碼格式錯誤</div>
-    <div style="color: rgb(112,112,112); margin-top: 15px; font-size: 15px;">已經有帳號了？
-      <span style="color: rgb(242,116,73)" @click="gotoPage('/signIn')">登入</span>
+      <!-- 按鈕 -->
+      <div class="button btnSignUp" @click="checkPhone">取得手機驗證碼</div>
+      <div v-if="notCompleted" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">請確認資料填寫完成</div>
+      <div v-if="invalidPhone" style="color: rgb(242, 116, 73); text-align: center; font-size: 15px; padding-top: 5px;">手機號碼格式錯誤</div>
+      <div style="color: rgb(112,112,112); margin-top: 15px; font-size: 15px;">已經有帳號了？
+        <span style="color: rgb(242,116,73)" @click="gotoPage('/signIn')">登入</span>
+      </div>
     </div>
   </div>
 </template>
@@ -160,7 +162,8 @@ export default {
 <style scoped>
 .home {
   height: 100vh;
-  overflow: auto;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .showLoading {
   opacity: 0.8;

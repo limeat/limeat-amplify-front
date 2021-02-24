@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div style="min-height: 650px;">
+    <div style="min-height: 460pt;">
       <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
         <img src="../../assets/dergedcbh.gif" width="50" class="center_img">
       </div>
@@ -42,7 +42,6 @@
           <div style="color: rgb(112,112,112); margin-top: 15px; font-size: 15px;">還不是用戶嗎？
             <span style="color: rgb(242,116,73)" @click="gotoPage('/signUp')">註冊</span>
           </div>
-          <div style="height: 10px;"></div>
         </div>
       </div>
     </div>
@@ -121,7 +120,8 @@ export default {
 <style scoped>
 .home {
   height: 100vh;
-  overflow: auto;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .showLoading {
   opacity: 0.8;

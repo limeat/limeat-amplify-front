@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div style="min-height: 600px;">
+    <div style="min-height: 450pt;">
       <div :class="{ showLoading: loadingBar, noShowLoading: !loadingBar }">
         <img src="../assets/dergedcbh.gif" width="50" class="center_img">
       </div>
@@ -18,6 +18,8 @@
         <button class="button btnSignUp" @click="goToPage('/signUp')" style="margin-top: 25px;">SIGN UP</button>
       </div>
     </div>
+    <!-- 預留空間 -->
+    <!-- <div style="height: 90px;"></div> -->
   </div>
 </template>
 

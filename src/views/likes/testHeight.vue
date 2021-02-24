@@ -350,7 +350,7 @@ export default {
   }
   .flavor {
     background-color: rgb(255, 242, 226);
-    height: 520pt;
+    height: 510pt;
     position: absolute;
     top: 0;
     padding-top: 40px;
@@ -360,7 +360,7 @@ export default {
   }
   .type {
     background-color: rgb(252, 177, 74);
-    height: 520pt;
+    height: 510pt;
     position: absolute;
     top: 0;
     padding-top: 40px;
@@ -370,7 +370,7 @@ export default {
   }
   .price {
     background-color: rgb(237, 113, 70);
-    height: 520pt;
+    height: 510pt;
     position: absolute;
     top: 0;
     padding-top: 40px;
@@ -401,7 +401,7 @@ export default {
   .btn_group {
     position: absolute;
     width: 100%;
-    top: 520pt;
+    top: 510pt;
   }
   .btn {
     transition: 0.5s;
